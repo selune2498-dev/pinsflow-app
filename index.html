@@ -6,60 +6,63 @@
 <title>PinsFlow - VGreyDigitalStudio</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: sans-serif; background: #f5f5f5; }
-.nav { background: #e60023; padding: 14px 20px; display: flex; gap: 10px; }
-.nav button { background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; }
-.nav button.active, .nav button:hover { background: white; color: #e60023; }
+body { font-family: sans-serif; background: #f5f0ff; }
+.nav { background: #d8b4fe; padding: 14px 20px; display: flex; gap: 10px; align-items: center; }
+.nav-title { color: #6b21a8; font-weight: bold; font-size: 16px; margin-right: auto; }
+.nav button { background: white; color: #9333ea; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; opacity: 0.7; }
+.nav button.active, .nav button:hover { opacity: 1; box-shadow: 0 2px 8px rgba(147,51,234,0.2); }
 .page { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
 .page.active { display: block; }
-h1 { color: #e60023; text-align: center; margin-bottom: 6px; font-size: 26px; }
-.subtitle { text-align: center; color: #888; margin-bottom: 20px; font-size: 14px; }
-.card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-label { display: block; font-weight: bold; margin-bottom: 6px; color: #333; margin-top: 12px; font-size: 14px; }
-input[type=text], input[type=time], select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
-.upload-box { border: 2px dashed #ddd; border-radius: 8px; padding: 16px; text-align: center; cursor: pointer; color: #888; }
-.upload-box:hover { border-color: #e60023; color: #e60023; }
-#preview { max-width: 100%; max-height: 180px; border-radius: 8px; margin-top: 10px; display: none; }
-.btn { background: #e60023; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 12px; }
-.btn:hover { background: #c0001e; }
-.btn-outline { background: white; color: #e60023; border: 2px solid #e60023; }
-.btn-outline:hover { background: #fff0f0; }
+h1 { color: #7e22ce; text-align: center; margin-bottom: 6px; font-size: 26px; }
+.subtitle { text-align: center; color: #c084fc; margin-bottom: 20px; font-size: 14px; }
+.card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(167,139,250,0.15); border: 1.5px solid #ede9fe; }
+label { display: block; font-weight: bold; margin-bottom: 6px; color: #7e22ce; margin-top: 12px; font-size: 14px; }
+input[type=text] { width: 100%; padding: 10px 14px; border: 1.5px solid #e9d5ff; border-radius: 10px; font-size: 14px; outline: none; background: #faf5ff; }
+input:focus { border-color: #c084fc; }
+.upload-box { border: 2px dashed #e9d5ff; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; color: #c084fc; background: #faf5ff; }
+.upload-box:hover { border-color: #c084fc; color: #9333ea; }
+#preview { max-width: 100%; max-height: 180px; border-radius: 10px; margin-top: 10px; display: none; }
+.btn { background: #c084fc; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 12px; font-weight: bold; letter-spacing: 0.5px; }
+.btn:hover { background: #a855f7; }
 .pins-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.pin-wrap { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-.pin-label { padding: 8px 12px; font-size: 12px; color: #555; font-weight: bold; }
+.pin-wrap { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(167,139,250,0.15); border: 1.5px solid #ede9fe; }
+.pin-label { padding: 8px 12px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; }
 canvas { display: block; width: 100%; }
-.dl-btn { display: block; margin: 6px 10px 10px; background: #e60023; color: white; border: none; padding: 7px; border-radius: 6px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; }
-
-/* Planetary Hours */
+.dl-btn { display: block; margin: 6px 10px 10px; background: #c084fc; color: white; border: none; padding: 8px; border-radius: 8px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; font-weight: bold; }
+.dl-btn:hover { background: #a855f7; }
 .planet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
-.planet-card { border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
-.planet-card.selected { border-color: #333; transform: scale(1.03); }
+.planet-card { border-radius: 14px; padding: 14px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+.planet-card.selected { border-color: #7e22ce; transform: scale(1.03); }
 .planet-card .planet-name { font-weight: bold; font-size: 15px; }
 .planet-card .planet-time { font-size: 12px; opacity: 0.85; margin-top: 2px; }
-.planet-card .planet-icon { font-size: 24px; margin-bottom: 4px; }
-.hours-list { max-height: 300px; overflow-y: auto; }
-.hour-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
-.hour-row.current { background: #fff3f3; font-weight: bold; }
-.hour-row .planet-badge { padding: 2px 8px; border-radius: 10px; font-size: 12px; color: white; }
+.planet-card .planet-icon { font-size: 26px; margin-bottom: 4px; }
+.hours-list { max-height: 320px; overflow-y: auto; }
+.hour-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; border-bottom: 1px solid #f5f0ff; font-size: 13px; flex-wrap: wrap; gap: 4px; }
+.hour-row.current { background: #faf5ff; font-weight: bold; }
+.planet-badge { padding: 3px 10px; border-radius: 12px; font-size: 12px; color: white; }
 .location-row { display: flex; gap: 8px; align-items: flex-end; }
 .location-row input { flex: 1; }
+.best-box { border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
 <div class="nav">
-  <button class="active" onclick="showPage('pins')">🎨 Generate Pins</button>
-  <button onclick="showPage('planets')">🌟 Planetary Hours</button>
+  <span class="nav-title">🔮 PinsFlow</span>
+  <button class="active" onclick="showPage('pins', this)">🎨 Generate Pins</button>
+  <button onclick="showPage('planets', this)">🌟 Planetary Hours</button>
 </div>
 
 <!-- PAGE: Generate Pins -->
 <div id="page-pins" class="page active">
   <br>
-  <h1>🎨 PinsFlow</h1>
-  <p class="subtitle">Generate Pinterest Pins สำหรับ VGreyDigitalStudio</p>
+  <h1>🎨 Generate Pins</h1>
+  <p class="subtitle">สร้าง Pinterest Pins สำหรับ VGreyDigitalStudio</p>
   <div class="card">
     <label>📷 อัปโหลดรูปสินค้า</label>
-    <div class="upload-box" onclick="document.getElementById('img-input').click()">กดเพื่อเลือกรูปสินค้า</div>
+    <div class="upload-box" onclick="document.getElementById('img-input').click()">
+      🖼️ กดเพื่อเลือกรูปสินค้า
+    </div>
     <input type="file" id="img-input" accept="image/*" style="display:none" onchange="previewImage(event)">
     <img id="preview" />
     <label>✏️ ชื่อสินค้า</label>
@@ -75,62 +78,55 @@ canvas { display: block; width: 100%; }
 <div id="page-planets" class="page">
   <br>
   <h1>🌟 Planetary Hours</h1>
-  <p class="subtitle">เวลาดาวสำหรับการโพส Pinterest</p>
-
+  <p class="subtitle">เวลามงคลสำหรับการโพส Pinterest</p>
   <div class="card">
-    <label>📍 เมือง / ที่อยู่</label>
+    <label>📍 เมือง</label>
     <div class="location-row">
       <input type="text" id="city-input" placeholder="Bangkok" value="Bangkok" />
-      <button class="btn" style="width:auto;margin:0;padding:10px 16px" onclick="calcHours()">คำนวณ</button>
+      <button class="btn" style="width:auto;margin:0;padding:10px 18px" onclick="calcHours()">คำนวณ</button>
     </div>
-    <div id="sun-info" style="margin-top:10px;font-size:13px;color:#888;text-align:center"></div>
+    <div id="sun-info" style="margin-top:10px;font-size:13px;color:#c084fc;text-align:center"></div>
   </div>
-
   <div id="planet-filter" class="card" style="display:none">
-    <label>🪐 กรองตามดาว (กดเลือก)</label>
+    <label>🪐 กรองตามดาว</label>
     <div class="planet-grid" id="planet-buttons"></div>
   </div>
-
+  <div id="best-times-card" class="card" style="display:none">
+    <label>💜 เวลาแนะนำสำหรับ Pinterest</label>
+    <div id="best-times"></div>
+  </div>
   <div id="hours-card" class="card" style="display:none">
     <label>⏰ ตารางชั่วโมงดาววันนี้</label>
     <div class="hours-list" id="hours-list"></div>
   </div>
-
-  <div id="best-times-card" class="card" style="display:none">
-    <label>💡 เวลาดาวศุกร์และดาวพฤหัสวันนี้ (แนะนำสำหรับ Pinterest)</label>
-    <div id="best-times"></div>
-  </div>
 </div>
 
 <script>
-// ===== PAGE NAVIGATION =====
-function showPage(name) {
+function showPage(name, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
   if (name === 'planets') calcHours();
 }
 
 // ===== GENERATE PINS =====
 let loadedImage = null;
 const STYLES = [
-  { name: "Classic White", bg: "#ffffff", text: "#222222", accent: "#e60023" },
-  { name: "Dark Minimal", bg: "#1a1a1a", text: "#ffffff", accent: "#e60023" },
-  { name: "Soft Pink", bg: "#fff0f3", text: "#5c1a2e", accent: "#c0001e" },
-  { name: "Forest Green", bg: "#1e3a2f", text: "#e8f5e9", accent: "#81c784" },
-  { name: "Cream Vintage", bg: "#fdf6e3", text: "#3b2f00", accent: "#b5860d" },
-  { name: "Deep Navy", bg: "#0d1b2a", text: "#e0e8f0", accent: "#4fc3f7" },
+  { name: "Lavender Dream", bg: "#f5f0ff", text: "#4c1d95", accent: "#a855f7" },
+  { name: "Purple Night", bg: "#2e1065", text: "#f3e8ff", accent: "#c084fc" },
+  { name: "Soft Rose", bg: "#fff0f9", text: "#831843", accent: "#d946ef" },
+  { name: "Mint Fresh", bg: "#f0fdf4", text: "#14532d", accent: "#22c55e" },
+  { name: "Cream Gold", bg: "#fefce8", text: "#713f12", accent: "#eab308" },
+  { name: "Sky Blue", bg: "#f0f9ff", text: "#0c4a6e", accent: "#38bdf8" },
 ];
 
 function previewImage(e) {
-  const file = e.target.files[0];
-  if (!file) return;
+  const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
     const img = document.getElementById('preview');
-    img.src = ev.target.result;
-    img.style.display = 'block';
+    img.src = ev.target.result; img.style.display = 'block';
     const image = new Image();
     image.onload = () => { loadedImage = image; };
     image.src = ev.target.result;
@@ -142,13 +138,13 @@ function generatePins() {
   const title = document.getElementById('title-input').value.trim();
   const url = document.getElementById('url-input').value.trim();
   const output = document.getElementById('output');
-  if (!loadedImage) { alert('กรุณาอัปโหลดรูปสินค้าก่อนนะ'); return; }
+  if (!loadedImage) { alert('กรุณาอัปโหลดรูปสินค้าก่อนนะ 🌸'); return; }
   if (!title) { alert('กรุณาใส่ชื่อสินค้า'); return; }
   if (!url) { alert('กรุณาใส่ลิงก์ Etsy'); return; }
   output.innerHTML = '';
   const dlAll = document.createElement('button');
   dlAll.className = 'btn'; dlAll.style.cssText = 'max-width:600px;margin:0 auto 12px;display:block';
-  dlAll.textContent = '⬇️ ดาวน์โหลดทั้งหมด'; dlAll.onclick = () => downloadAll();
+  dlAll.textContent = '⬇️ ดาวน์โหลดทั้งหมด'; dlAll.onclick = downloadAll;
   output.appendChild(dlAll);
   const grid = document.createElement('div'); grid.className = 'pins-grid';
   STYLES.forEach((style, i) => {
@@ -202,161 +198,118 @@ function downloadAll() {
 // ===== PLANETARY HOURS =====
 const PLANETS = [
   { name: 'อาทิตย์', en: 'Sun', icon: '☀️', color: '#f59e0b', text: '#fff' },
-  { name: 'จันทร์',  en: 'Moon', icon: '🌙', color: '#94a3b8', text: '#fff' },
+  { name: 'จันทร์', en: 'Moon', icon: '🌙', color: '#94a3b8', text: '#fff' },
   { name: 'อังคาร', en: 'Mars', icon: '🔴', color: '#ef4444', text: '#fff' },
-  { name: 'พุธ',    en: 'Mercury', icon: '⚡', color: '#8b5cf6', text: '#fff' },
-  { name: 'พฤหัส', en: 'Jupiter', icon: '🟡', color: '#3b82f6', text: '#fff' },
-  { name: 'ศุกร์',  en: 'Venus', icon: '💚', color: '#10b981', text: '#fff' },
-  { name: 'เสาร์',  en: 'Saturn', icon: '🪐', color: '#374151', text: '#fff' },
+  { name: 'พุธ', en: 'Mercury', icon: '⚡', color: '#8b5cf6', text: '#fff' },
+  { name: 'พฤหัส', en: 'Jupiter', icon: '🌀', color: '#3b82f6', text: '#fff' },
+  { name: 'ศุกร์', en: 'Venus', icon: '💜', color: '#d946ef', text: '#fff' },
+  { name: 'เสาร์', en: 'Saturn', icon: '🪐', color: '#374151', text: '#fff' },
 ];
-
-// Chaldean order
-const CHALDEAN = [2, 1, 4, 6, 0, 5, 3]; // Sun=0,Moon=1,Mars=2,Mer=3,Jup=4,Ven=5,Sat=6 → index in PLANETS
-
-// Day rulers: Sun=0,Mon=1,Tue=2,Wed=3,Thu=4,Fri=5,Sat=6
-const DAY_RULER = [0, 1, 2, 3, 4, 5, 6]; // index in PLANETS per JS day (0=Sun)
-
+const CHALDEAN = [2, 1, 4, 6, 0, 5, 3];
 let selectedPlanet = null;
 let allHours = [];
 
 async function calcHours() {
   const city = document.getElementById('city-input').value.trim() || 'Bangkok';
   document.getElementById('sun-info').textContent = '⏳ กำลังคำนวณ...';
-
   try {
-    // ดึง lat/lon จาก city
     const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`);
     const geoData = await geoRes.json();
     if (!geoData.length) { document.getElementById('sun-info').textContent = '❌ ไม่พบเมืองนี้'; return; }
-
-    const lat = parseFloat(geoData[0].lat);
-    const lon = parseFloat(geoData[0].lon);
-
-    // คำนวณ sunrise/sunset
+    const lat = parseFloat(geoData[0].lat), lon = parseFloat(geoData[0].lon);
     const now = new Date();
     const { sunrise, sunset } = getSunTimes(lat, lon, now);
-
-    document.getElementById('sun-info').textContent =
-      `📍 ${geoData[0].display_name.split(',')[0]} | 🌅 พระอาทิตย์ขึ้น ${fmtTime(sunrise)} | 🌇 ตก ${fmtTime(sunset)}`;
-
-    // คำนวณ planetary hours
+    document.getElementById('sun-info').textContent = `📍 ${geoData[0].display_name.split(',')[0]} | 🌅 ${fmtTime(sunrise)} | 🌇 ${fmtTime(sunset)}`;
     allHours = calcPlanetaryHours(sunrise, sunset, now);
     renderHours(allHours);
     renderPlanetButtons();
     renderBestTimes(allHours);
-
     document.getElementById('planet-filter').style.display = 'block';
     document.getElementById('hours-card').style.display = 'block';
     document.getElementById('best-times-card').style.display = 'block';
-
   } catch(e) {
-    document.getElementById('sun-info').textContent = '❌ เกิดข้อผิดพลาด: ' + e.message;
+    document.getElementById('sun-info').textContent = '❌ เกิดข้อผิดพลาด';
   }
 }
 
 function getSunTimes(lat, lon, date) {
-  // Solar calculation
-  const rad = Math.PI / 180;
-  const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000);
-  const B = (360/365) * (dayOfYear - 81) * rad;
-  const eot = 9.87*Math.sin(2*B) - 7.53*Math.cos(B) - 1.5*Math.sin(B);
-  const declination = 23.45 * Math.sin(B) * rad;
-  const hourAngle = Math.acos(-Math.tan(lat*rad) * Math.tan(declination)) / rad;
-  const tzOffset = date.getTimezoneOffset() / -60;
-  const solarNoon = 12 - (lon/15 - tzOffset) - eot/60;
-  const sunriseH = solarNoon - hourAngle/15;
-  const sunsetH = solarNoon + hourAngle/15;
-  const toDate = h => { const d = new Date(date); d.setHours(0,0,0,0); d.setTime(d.getTime() + h*3600000); return d; };
-  return { sunrise: toDate(sunriseH), sunset: toDate(sunsetH) };
+  const rad = Math.PI/180;
+  const dayOfYear = Math.floor((date - new Date(date.getFullYear(),0,0))/86400000);
+  const B = (360/365)*(dayOfYear-81)*rad;
+  const eot = 9.87*Math.sin(2*B)-7.53*Math.cos(B)-1.5*Math.sin(B);
+  const decl = 23.45*Math.sin(B)*rad;
+  const ha = Math.acos(-Math.tan(lat*rad)*Math.tan(decl))/rad;
+  const tz = date.getTimezoneOffset()/-60;
+  const noon = 12-(lon/15-tz)-eot/60;
+  const toDate = h => { const d = new Date(date); d.setHours(0,0,0,0); d.setTime(d.getTime()+h*3600000); return d; };
+  return { sunrise: toDate(noon-ha/15), sunset: toDate(noon+ha/15) };
 }
 
-function calcPlanetaryHours(sunrise, sunset, refDate) {
-  const dayMs = sunset - sunrise;
-  const nightMs = 86400000 - dayMs;
-  const dayHourMs = dayMs / 12;
-  const nightHourMs = nightMs / 12;
-
-  const jsDay = refDate.getDay(); // 0=Sun
-  const dayRulerIdx = jsDay; // ruler planet index in PLANETS array
-  // find starting Chaldean position
-  const chaldeanStart = CHALDEAN.indexOf(dayRulerIdx);
-
+function calcPlanetaryHours(sunrise, sunset, ref) {
+  const dayMs = sunset-sunrise, nightMs = 86400000-dayMs;
+  const dayH = dayMs/12, nightH = nightMs/12;
+  const jsDay = ref.getDay();
+  const start = CHALDEAN.indexOf(jsDay);
   const hours = [];
   for (let i = 0; i < 24; i++) {
-    const chaldIdx = (chaldeanStart + i) % 7;
-    const planetIdx = CHALDEAN[chaldIdx];
+    const pidx = CHALDEAN[(start+i)%7];
     const isDay = i < 12;
-    const start = isDay
-      ? new Date(sunrise.getTime() + i * dayHourMs)
-      : new Date(sunset.getTime() + (i - 12) * nightHourMs);
-    const end = isDay
-      ? new Date(sunrise.getTime() + (i+1) * dayHourMs)
-      : new Date(sunset.getTime() + (i-11) * nightHourMs);
-    hours.push({ hour: i+1, planet: PLANETS[planetIdx], start, end, isDay });
+    const s = isDay ? new Date(sunrise.getTime()+i*dayH) : new Date(sunset.getTime()+(i-12)*nightH);
+    const e = isDay ? new Date(sunrise.getTime()+(i+1)*dayH) : new Date(sunset.getTime()+(i-11)*nightH);
+    hours.push({ hour: i+1, planet: PLANETS[pidx], start: s, end: e, isDay });
   }
   return hours;
 }
 
-function fmtTime(d) {
-  return d.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
-}
+function fmtTime(d) { return d.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }); }
 
 function renderHours(hours) {
   const now = new Date();
-  const list = document.getElementById('hours-list');
-  list.innerHTML = '';
+  const list = document.getElementById('hours-list'); list.innerHTML = '';
   hours.forEach(h => {
+    if (selectedPlanet && h.planet.en !== selectedPlanet) return;
     const isCurrent = now >= h.start && now < h.end;
-    const filtered = selectedPlanet && h.planet.en !== selectedPlanet;
-    if (filtered) return;
-    const row = document.createElement('div');
-    row.className = 'hour-row' + (isCurrent ? ' current' : '');
-    row.innerHTML = `
-      <span>${h.isDay ? '☀️' : '🌙'} ชั่วโมงที่ ${h.hour}</span>
-      <span>${fmtTime(h.start)} – ${fmtTime(h.end)}</span>
+    const row = document.createElement('div'); row.className = 'hour-row'+(isCurrent?' current':'');
+    row.innerHTML = `<span>${h.isDay?'☀️':'🌙'} ชั่วโมงที่ ${h.hour}</span>
+      <span style="color:#9ca3af">${fmtTime(h.start)} – ${fmtTime(h.end)}</span>
       <span class="planet-badge" style="background:${h.planet.color}">${h.planet.icon} ${h.planet.name}</span>
-      ${isCurrent ? '<span style="color:#e60023;font-size:12px">◀ ตอนนี้</span>' : ''}
-    `;
+      ${isCurrent?'<span style="color:#a855f7;font-size:11px">◀ ตอนนี้</span>':''}`;
     list.appendChild(row);
   });
 }
 
 function renderPlanetButtons() {
-  const container = document.getElementById('planet-buttons');
-  container.innerHTML = '';
-  const allBtn = document.createElement('div');
-  allBtn.className = 'planet-card' + (!selectedPlanet ? ' selected' : '');
-  allBtn.style.cssText = 'background:#f3f4f6;grid-column:span 2';
-  allBtn.innerHTML = `<div class="planet-icon">🌍</div><div class="planet-name">แสดงทั้งหมด</div>`;
-  allBtn.onclick = () => { selectedPlanet = null; renderHours(allHours); renderPlanetButtons(); };
-  container.appendChild(allBtn);
-
+  const c = document.getElementById('planet-buttons'); c.innerHTML = '';
+  const all = document.createElement('div');
+  all.className = 'planet-card'+(selectedPlanet?'':' selected');
+  all.style.cssText = 'background:#f5f0ff;grid-column:span 2;border:1.5px solid #e9d5ff';
+  all.innerHTML = `<div class="planet-icon">🌍</div><div class="planet-name" style="color:#7e22ce">แสดงทั้งหมด</div>`;
+  all.onclick = () => { selectedPlanet = null; renderHours(allHours); renderPlanetButtons(); };
+  c.appendChild(all);
   PLANETS.forEach(p => {
     const btn = document.createElement('div');
-    btn.className = 'planet-card' + (selectedPlanet === p.en ? ' selected' : '');
-    btn.style.cssText = `background:${p.color}`;
+    btn.className = 'planet-card'+(selectedPlanet===p.en?' selected':'');
+    btn.style.cssText = `background:${p.color}22;border:1.5px solid ${p.color}44`;
     const times = allHours.filter(h => h.planet.en === p.en);
-    btn.innerHTML = `
-      <div class="planet-icon">${p.icon}</div>
-      <div class="planet-name" style="color:${p.text}">${p.name}</div>
-      <div class="planet-time" style="color:${p.text}">${times.length} ชั่วโมง</div>
-    `;
+    btn.innerHTML = `<div class="planet-icon">${p.icon}</div>
+      <div class="planet-name" style="color:${p.color}">${p.name}</div>
+      <div class="planet-time" style="color:${p.color}">${times.length} ชั่วโมง</div>`;
     btn.onclick = () => { selectedPlanet = p.en; renderHours(allHours); renderPlanetButtons(); };
-    container.appendChild(btn);
+    c.appendChild(btn);
   });
 }
 
 function renderBestTimes(hours) {
-  const container = document.getElementById('best-times');
-  container.innerHTML = '';
-  ['Venus', 'Jupiter'].forEach(en => {
-    const p = PLANETS.find(x => x.en === en);
-    const times = hours.filter(h => h.planet.en === en);
+  const c = document.getElementById('best-times'); c.innerHTML = '';
+  ['Venus','Jupiter','Sun'].forEach(en => {
+    const p = PLANETS.find(x => x.en===en);
+    const times = hours.filter(h => h.planet.en===en);
     const div = document.createElement('div');
-    div.style.cssText = 'margin-bottom:10px;padding:10px;border-radius:8px;background:' + p.color + '20';
-    div.innerHTML = `<strong style="color:${p.color}">${p.icon} ดาว${p.name}</strong><br>` +
-      times.map(h => `<span style="font-size:13px">⏰ ${fmtTime(h.start)} – ${fmtTime(h.end)} ${h.isDay?'(กลางวัน)':'(กลางคืน)'}</span>`).join('<br>');
-    container.appendChild(div);
+    div.className = 'best-box';
+    div.style.cssText = `background:${p.color}15;border:1px solid ${p.color}30;margin-bottom:8px`;
+    div.innerHTML = `<strong style="color:${p.color}">${p.icon} ดาว${p.name}</strong><br>`+
+      times.map(h=>`<span style="font-size:13px;color:#6b7280">⏰ ${fmtTime(h.start)} – ${fmtTime(h.end)} ${h.isDay?'🌤️':'🌙'}</span>`).join('<br>');
+    c.appendChild(div);
   });
 }
 </script>
