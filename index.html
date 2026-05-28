@@ -11,7 +11,7 @@ body { font-family: sans-serif; background: #f5f0ff; }
 .nav-title { color: #6b21a8; font-weight: bold; font-size: 16px; margin-right: auto; }
 .nav button { background: white; color: #9333ea; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; opacity: 0.7; }
 .nav button.active, .nav button:hover { opacity: 1; box-shadow: 0 2px 8px rgba(147,51,234,0.2); }
-.page { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
+.page { display: none; padding: 20px; max-width: 900px; margin: 0 auto; }
 .page.active { display: block; }
 h1 { color: #7e22ce; text-align: center; margin-bottom: 6px; font-size: 26px; }
 .subtitle { text-align: center; color: #c084fc; margin-bottom: 20px; font-size: 14px; }
@@ -22,20 +22,48 @@ input:focus { border-color: #c084fc; }
 .upload-box { border: 2px dashed #e9d5ff; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; color: #c084fc; background: #faf5ff; }
 .upload-box:hover { border-color: #c084fc; color: #9333ea; }
 #preview { max-width: 100%; max-height: 180px; border-radius: 10px; margin-top: 10px; display: none; }
-.btn { background: #c084fc; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 12px; font-weight: bold; letter-spacing: 0.5px; }
+.btn { background: #c084fc; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 12px; font-weight: bold; }
 .btn:hover { background: #a855f7; }
+.btn-sm { padding: 7px 14px; font-size: 13px; width: auto; margin-top: 0; border-radius: 8px; }
+.btn-outline { background: white; color: #9333ea; border: 2px solid #c084fc; }
+.btn-outline:hover { background: #faf5ff; }
+.btn-danger { background: #fce7f3; color: #be185d; border: none; padding: 5px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+
+/* Mockup Editor */
+.mockup-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
+.mockup-thumb { border-radius: 12px; overflow: hidden; border: 2px solid #ede9fe; cursor: pointer; position: relative; background: #faf5ff; }
+.mockup-thumb:hover { border-color: #c084fc; }
+.mockup-thumb img { width: 100%; display: block; }
+.mockup-thumb .thumb-label { padding: 6px 10px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; display: flex; justify-content: space-between; align-items: center; }
+.mockup-thumb .edit-badge { background: #c084fc; color: white; font-size: 10px; padding: 2px 7px; border-radius: 8px; }
+.mockup-thumb .no-zone { background: #fef3c7; color: #92400e; font-size: 10px; padding: 2px 7px; border-radius: 8px; }
+
+/* Canvas Editor */
+.editor-wrap { position: relative; display: inline-block; max-width: 100%; }
+#editor-canvas { border-radius: 10px; border: 2px solid #e9d5ff; cursor: crosshair; max-width: 100%; }
+.editor-hint { font-size: 12px; color: #a78bfa; margin-top: 6px; text-align: center; }
+
+/* Result Grid */
+.result-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.result-item { border-radius: 14px; overflow: hidden; border: 1.5px solid #ede9fe; background: white; }
+.result-item img { width: 100%; display: block; }
+.result-label { padding: 7px 12px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; display: flex; justify-content: space-between; align-items: center; }
+
+/* Pins */
 .pins-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .pin-wrap { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(167,139,250,0.15); border: 1.5px solid #ede9fe; }
 .pin-label { padding: 8px 12px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; }
-canvas { display: block; width: 100%; }
+canvas.pin-canvas { display: block; width: 100%; }
 .dl-btn { display: block; margin: 6px 10px 10px; background: #c084fc; color: white; border: none; padding: 8px; border-radius: 8px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; font-weight: bold; }
 .dl-btn:hover { background: #a855f7; }
-.planet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+
+/* Planetary */
+.planet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .planet-card { border-radius: 14px; padding: 14px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
 .planet-card.selected { border-color: #7e22ce; transform: scale(1.03); }
-.planet-card .planet-name { font-weight: bold; font-size: 15px; }
-.planet-card .planet-time { font-size: 12px; opacity: 0.85; margin-top: 2px; }
-.planet-card .planet-icon { font-size: 26px; margin-bottom: 4px; }
+.planet-icon { font-size: 26px; margin-bottom: 4px; }
+.planet-name { font-weight: bold; font-size: 15px; }
+.planet-time { font-size: 12px; opacity: 0.85; margin-top: 2px; }
 .hours-list { max-height: 320px; overflow-y: auto; }
 .hour-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; border-bottom: 1px solid #f5f0ff; font-size: 13px; flex-wrap: wrap; gap: 4px; }
 .hour-row.current { background: #faf5ff; font-weight: bold; }
@@ -49,25 +77,83 @@ canvas { display: block; width: 100%; }
 
 <div class="nav">
   <span class="nav-title">🔮 PinsFlow</span>
-  <button class="active" onclick="showPage('pins', this)">🎨 Generate Pins</button>
+  <button class="active" onclick="showPage('mockup', this)">👕 Mockup</button>
+  <button onclick="showPage('pins', this)">🎨 Generate Pins</button>
   <button onclick="showPage('planets', this)">🌟 Planetary Hours</button>
 </div>
 
+<!-- PAGE: MOCKUP -->
+<div id="page-mockup" class="page active">
+  <br>
+  <h1>👕 Mockup Generator</h1>
+  <p class="subtitle">วางดีไซน์ลงบน Mockup อัตโนมัติ</p>
+
+  <!-- Step 1: Upload Design -->
+  <div class="card">
+    <label>🎨 Step 1 — อัปโหลดไฟล์ดีไซน์ PNG</label>
+    <div class="upload-box" onclick="document.getElementById('design-input').click()">
+      🖼️ กดเพื่อเลือกไฟล์ดีไซน์ PNG
+    </div>
+    <input type="file" id="design-input" accept="image/*" style="display:none" onchange="loadDesign(event)">
+    <img id="design-preview" style="max-height:120px;margin-top:10px;border-radius:8px;display:none">
+  </div>
+
+  <!-- Step 2: Mockup Templates -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <label style="margin:0">👕 Step 2 — เลือก Mockup</label>
+      <button class="btn btn-sm btn-outline" onclick="document.getElementById('mockup-input').click()">+ เพิ่ม Mockup</button>
+    </div>
+    <input type="file" id="mockup-input" accept="image/*" multiple style="display:none" onchange="addMockups(event)">
+    <p style="font-size:12px;color:#a78bfa;margin-top:6px">กดที่ mockup เพื่อกำหนดตำแหน่งวางดีไซน์</p>
+    <div class="mockup-grid" id="mockup-grid">
+      <div style="border:2px dashed #e9d5ff;border-radius:12px;padding:30px;text-align:center;color:#c084fc;cursor:pointer" onclick="document.getElementById('mockup-input').click()">
+        <div style="font-size:30px">+</div>
+        <div style="font-size:13px;margin-top:6px">เพิ่ม Mockup</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3: Generate -->
+  <div class="card" id="generate-card" style="display:none">
+    <label>✨ Step 3 — Generate!</label>
+    <p style="font-size:13px;color:#a78bfa;margin-bottom:12px">กด Generate แล้วโหลดรูปได้เลย</p>
+    <button class="btn" onclick="generateMockups()">✨ Generate Mockups ทั้งหมด</button>
+  </div>
+
+  <!-- Results -->
+  <div id="mockup-results"></div>
+
+  <!-- Editor Modal -->
+  <div id="editor-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999;overflow-y:auto;padding:20px">
+    <div style="background:white;border-radius:20px;padding:20px;max-width:600px;margin:0 auto">
+      <h2 style="color:#7e22ce;margin-bottom:8px">📐 กำหนดตำแหน่งดีไซน์</h2>
+      <p class="editor-hint">👆 ลากเพื่อวาดกล่องตำแหน่งที่ต้องการวางดีไซน์</p>
+      <div class="editor-wrap" style="margin:12px 0">
+        <canvas id="editor-canvas"></canvas>
+      </div>
+      <p id="zone-info" style="font-size:12px;color:#a78bfa;text-align:center;margin-bottom:10px"></p>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="saveZone()" style="flex:1">💾 บันทึกตำแหน่ง</button>
+        <button class="btn btn-outline" onclick="closeEditor()" style="flex:1">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- PAGE: Generate Pins -->
-<div id="page-pins" class="page active">
+<div id="page-pins" class="page">
   <br>
   <h1>🎨 Generate Pins</h1>
   <p class="subtitle">สร้าง Pinterest Pins สำหรับ VGreyDigitalStudio</p>
   <div class="card">
     <label>📷 อัปโหลดรูปสินค้า</label>
-    <div class="upload-box" onclick="document.getElementById('img-input').click()">
-      🖼️ กดเพื่อเลือกรูปสินค้า
-    </div>
+    <div class="upload-box" onclick="document.getElementById('img-input').click()">🖼️ กดเพื่อเลือกรูปสินค้า</div>
     <input type="file" id="img-input" accept="image/*" style="display:none" onchange="previewImage(event)">
-    <img id="preview" />
+    <img id="preview" style="max-width:100%;max-height:180px;border-radius:10px;margin-top:10px;display:none">
     <label>✏️ ชื่อสินค้า</label>
     <input type="text" id="title-input" placeholder="เช่น Statue of Liberty Sketch Print" />
-    <label>🔗 ลิงก์ Etsy ของสินค้านี้</label>
+    <label>🔗 ลิงก์ Etsy</label>
     <input type="text" id="url-input" placeholder="https://www.etsy.com/listing/..." />
     <button class="btn" onclick="generatePins()">✨ Generate Pins</button>
   </div>
@@ -92,22 +178,245 @@ canvas { display: block; width: 100%; }
     <div class="planet-grid" id="planet-buttons"></div>
   </div>
   <div id="best-times-card" class="card" style="display:none">
-    <label>💜 เวลาแนะนำสำหรับ Pinterest</label>
+    <label>💜 เวลาแนะนำ</label>
     <div id="best-times"></div>
   </div>
   <div id="hours-card" class="card" style="display:none">
-    <label>⏰ ตารางชั่วโมงดาววันนี้</label>
+    <label>⏰ ตารางชั่วโมงดาว</label>
     <div class="hours-list" id="hours-list"></div>
   </div>
 </div>
 
 <script>
+// ===== NAV =====
 function showPage(name, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   btn.classList.add('active');
   if (name === 'planets') calcHours();
+}
+
+// ===== MOCKUP =====
+let designImg = null;
+let mockups = []; // { id, name, img, imgSrc, zone: {x,y,w,h} | null }
+let editingId = null;
+let isDrawing = false;
+let startX, startY, currentZone = null;
+let editorScale = 1;
+
+function loadDesign(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      designImg = img;
+      document.getElementById('design-preview').src = ev.target.result;
+      document.getElementById('design-preview').style.display = 'block';
+      checkGenerateReady();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function addMockups(e) {
+  const files = Array.from(e.target.files);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        const id = Date.now() + Math.random();
+        mockups.push({ id, name: file.name.replace(/\.[^/.]+$/, ''), img, imgSrc: ev.target.result, zone: null });
+        renderMockupGrid();
+        checkGenerateReady();
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+
+function renderMockupGrid() {
+  const grid = document.getElementById('mockup-grid');
+  grid.innerHTML = '';
+  mockups.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'mockup-thumb';
+    div.innerHTML = `
+      <img src="${m.imgSrc}">
+      <div class="thumb-label">
+        <span>👕 ${m.name}</span>
+        <span class="${m.zone ? 'edit-badge' : 'no-zone'}">${m.zone ? '✅ กำหนดแล้ว' : '⚠️ ยังไม่กำหนด'}</span>
+      </div>
+      <div style="display:flex;gap:6px;padding:6px 10px 10px">
+        <button class="btn btn-sm" style="flex:1" onclick="openEditor('${m.id}')">📐 กำหนดตำแหน่ง</button>
+        <button class="btn-danger" onclick="removeMockup('${m.id}')">🗑️</button>
+      </div>`;
+    grid.appendChild(div);
+  });
+  // Add button
+  const add = document.createElement('div');
+  add.style.cssText = 'border:2px dashed #e9d5ff;border-radius:12px;padding:30px;text-align:center;color:#c084fc;cursor:pointer';
+  add.innerHTML = '<div style="font-size:30px">+</div><div style="font-size:13px;margin-top:6px">เพิ่ม Mockup</div>';
+  add.onclick = () => document.getElementById('mockup-input').click();
+  grid.appendChild(add);
+}
+
+function removeMockup(id) {
+  mockups = mockups.filter(m => String(m.id) !== String(id));
+  renderMockupGrid();
+  checkGenerateReady();
+}
+
+function checkGenerateReady() {
+  const hasDesign = !!designImg;
+  const hasZone = mockups.some(m => m.zone);
+  document.getElementById('generate-card').style.display = (hasDesign && hasZone) ? 'block' : 'none';
+}
+
+// Editor
+function openEditor(id) {
+  editingId = id;
+  const m = mockups.find(m => String(m.id) === String(id));
+  const modal = document.getElementById('editor-modal');
+  const canvas = document.getElementById('editor-canvas');
+  const ctx = canvas.getContext('2d');
+  const maxW = Math.min(560, window.innerWidth - 80);
+  editorScale = maxW / m.img.width;
+  canvas.width = m.img.width * editorScale;
+  canvas.height = m.img.height * editorScale;
+  currentZone = m.zone ? {...m.zone} : null;
+  drawEditor(ctx, m.img, canvas);
+  modal.style.display = 'block';
+}
+
+function drawEditor(ctx, img, canvas) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  if (currentZone) {
+    const z = currentZone;
+    ctx.fillStyle = 'rgba(192,132,252,0.3)';
+    ctx.fillRect(z.x * editorScale, z.y * editorScale, z.w * editorScale, z.h * editorScale);
+    ctx.strokeStyle = '#a855f7';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 3]);
+    ctx.strokeRect(z.x * editorScale, z.y * editorScale, z.w * editorScale, z.h * editorScale);
+    document.getElementById('zone-info').textContent = `พื้นที่: ${Math.round(z.w)} × ${Math.round(z.h)} px`;
+  }
+}
+
+document.getElementById('editor-canvas').addEventListener('mousedown', e => {
+  const canvas = e.target;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  startX = (e.clientX - rect.left) * scaleX / editorScale;
+  startY = (e.clientY - rect.top) * scaleY / editorScale;
+  isDrawing = true;
+});
+
+document.getElementById('editor-canvas').addEventListener('touchstart', e => {
+  e.preventDefault();
+  const canvas = e.target;
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  startX = (touch.clientX - rect.left) * scaleX / editorScale;
+  startY = (touch.clientY - rect.top) * scaleY / editorScale;
+  isDrawing = true;
+}, { passive: false });
+
+function getMousePos(canvas, e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return {
+    x: (clientX - rect.left) * scaleX / editorScale,
+    y: (clientY - rect.top) * scaleY / editorScale
+  };
+}
+
+['mousemove', 'touchmove'].forEach(evt => {
+  document.getElementById('editor-canvas').addEventListener(evt, e => {
+    if (!isDrawing) return;
+    if (e.preventDefault) e.preventDefault();
+    const canvas = document.getElementById('editor-canvas');
+    const m = mockups.find(m => String(m.id) === String(editingId));
+    const pos = getMousePos(canvas, e);
+    currentZone = { x: Math.min(startX, pos.x), y: Math.min(startY, pos.y), w: Math.abs(pos.x - startX), h: Math.abs(pos.y - startY) };
+    drawEditor(canvas.getContext('2d'), m.img, canvas);
+  }, { passive: false });
+});
+
+['mouseup', 'touchend'].forEach(evt => {
+  document.getElementById('editor-canvas').addEventListener(evt, () => { isDrawing = false; });
+});
+
+function saveZone() {
+  if (!currentZone || currentZone.w < 10 || currentZone.h < 10) {
+    alert('กรุณาลากเพื่อกำหนดพื้นที่ก่อนนะ 💜');
+    return;
+  }
+  const m = mockups.find(m => String(m.id) === String(editingId));
+  m.zone = {...currentZone};
+  renderMockupGrid();
+  checkGenerateReady();
+  closeEditor();
+}
+
+function closeEditor() {
+  document.getElementById('editor-modal').style.display = 'none';
+}
+
+function generateMockups() {
+  if (!designImg) { alert('กรุณาอัปโหลดดีไซน์ก่อนนะ'); return; }
+  const results = document.getElementById('mockup-results');
+  results.innerHTML = '';
+  const ready = mockups.filter(m => m.zone);
+  if (!ready.length) { alert('กรุณากำหนดตำแหน่งให้ mockup อย่างน้อย 1 อัน'); return; }
+
+  const title = document.createElement('div');
+  title.className = 'card';
+  title.innerHTML = `<label>🎉 ผลลัพธ์ ${ready.length} Mockup</label>`;
+  const grid = document.createElement('div');
+  grid.className = 'result-grid';
+
+  ready.forEach(m => {
+    const canvas = document.createElement('canvas');
+    canvas.width = m.img.width;
+    canvas.height = m.img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(m.img, 0, 0);
+    // วาดดีไซน์ลงในพื้นที่ที่กำหนด
+    ctx.drawImage(designImg, m.zone.x, m.zone.y, m.zone.w, m.zone.h);
+
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    const img = document.createElement('img');
+    img.src = canvas.toDataURL('image/png');
+    const lbl = document.createElement('div');
+    lbl.className = 'result-label';
+    lbl.innerHTML = `<span>👕 ${m.name}</span>`;
+    const dl = document.createElement('a');
+    dl.className = 'dl-btn';
+    dl.textContent = '⬇️ ดาวน์โหลด';
+    dl.href = canvas.toDataURL('image/png');
+    dl.download = `mockup-${m.name}.png`;
+    item.appendChild(img);
+    item.appendChild(lbl);
+    item.appendChild(dl);
+    grid.appendChild(item);
+  });
+
+  title.appendChild(grid);
+  results.appendChild(title);
 }
 
 // ===== GENERATE PINS =====
@@ -125,8 +434,8 @@ function previewImage(e) {
   const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
-    const img = document.getElementById('preview');
-    img.src = ev.target.result; img.style.display = 'block';
+    document.getElementById('preview').src = ev.target.result;
+    document.getElementById('preview').style.display = 'block';
     const image = new Image();
     image.onload = () => { loadedImage = image; };
     image.src = ev.target.result;
@@ -150,6 +459,7 @@ function generatePins() {
   STYLES.forEach((style, i) => {
     const canvas = document.createElement('canvas');
     canvas.width = 600; canvas.height = 900; canvas.id = 'canvas-' + i;
+    canvas.className = 'pin-canvas';
     drawPin(canvas.getContext('2d'), loadedImage, title, url, style);
     const wrap = document.createElement('div'); wrap.className = 'pin-wrap';
     const lbl = document.createElement('div'); lbl.className = 'pin-label'; lbl.textContent = '🎨 ' + style.name;
@@ -161,116 +471,96 @@ function generatePins() {
 }
 
 function drawPin(ctx, img, title, url, style) {
-  const W = 600, H = 900;
-  ctx.fillStyle = style.bg; ctx.fillRect(0, 0, W, H);
-  const imgH = 520, scale = Math.max(W/img.width, imgH/img.height);
-  const drawW = img.width*scale, drawH = img.height*scale;
-  ctx.drawImage(img, (W-drawW)/2, (imgH-drawH)/2, drawW, drawH);
-  const grad = ctx.createLinearGradient(0, 380, 0, 520);
-  grad.addColorStop(0, 'rgba(0,0,0,0)'); grad.addColorStop(1, style.bg);
-  ctx.fillStyle = grad; ctx.fillRect(0, 380, W, 140);
-  ctx.fillStyle = style.accent; ctx.fillRect(40, 548, 80, 4);
-  ctx.fillStyle = style.text; ctx.font = 'bold 24px sans-serif';
-  wrapText(ctx, title, 40, 585, 520, 32);
-  ctx.fillStyle = style.accent; ctx.font = '15px sans-serif';
-  ctx.fillText(url.length > 55 ? url.substring(0,52)+'...' : url, 40, 860);
+  const W=600, H=900;
+  ctx.fillStyle=style.bg; ctx.fillRect(0,0,W,H);
+  const imgH=520, scale=Math.max(W/img.width,imgH/img.height);
+  const drawW=img.width*scale, drawH=img.height*scale;
+  ctx.drawImage(img,(W-drawW)/2,(imgH-drawH)/2,drawW,drawH);
+  const grad=ctx.createLinearGradient(0,380,0,520);
+  grad.addColorStop(0,'rgba(0,0,0,0)'); grad.addColorStop(1,style.bg);
+  ctx.fillStyle=grad; ctx.fillRect(0,380,W,140);
+  ctx.fillStyle=style.accent; ctx.fillRect(40,548,80,4);
+  ctx.fillStyle=style.text; ctx.font='bold 24px sans-serif';
+  wrapText(ctx,title,40,585,520,32);
+  ctx.fillStyle=style.accent; ctx.font='15px sans-serif';
+  ctx.fillText(url.length>55?url.substring(0,52)+'...':url,40,860);
 }
 
-function wrapText(ctx, text, x, y, maxW, lh) {
-  const words = text.split(' '); let line = '';
-  for (let w of words) {
-    const test = line + w + ' ';
-    if (ctx.measureText(test).width > maxW && line) { ctx.fillText(line.trim(), x, y); line = w+' '; y+=lh; if(y>820)break; }
-    else line = test;
-  }
-  ctx.fillText(line.trim(), x, y);
+function wrapText(ctx,text,x,y,maxW,lh) {
+  const words=text.split(' '); let line='';
+  for(let w of words){const test=line+w+' ';if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line.trim(),x,y);line=w+' ';y+=lh;if(y>820)break;}else line=test;}
+  ctx.fillText(line.trim(),x,y);
 }
 
 function downloadAll() {
-  STYLES.forEach((style, i) => {
-    const a = document.createElement('a');
-    a.href = document.getElementById('canvas-'+i).toDataURL('image/png');
-    a.download = `pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
-    a.click();
-  });
+  STYLES.forEach((style,i)=>{const a=document.createElement('a');a.href=document.getElementById('canvas-'+i).toDataURL('image/png');a.download=`pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;a.click();});
 }
 
 // ===== PLANETARY HOURS =====
-const PLANETS = [
-  { name: 'อาทิตย์', en: 'Sun', icon: '☀️', color: '#f59e0b', text: '#fff' },
-  { name: 'จันทร์', en: 'Moon', icon: '🌙', color: '#94a3b8', text: '#fff' },
-  { name: 'อังคาร', en: 'Mars', icon: '🔴', color: '#ef4444', text: '#fff' },
-  { name: 'พุธ', en: 'Mercury', icon: '⚡', color: '#8b5cf6', text: '#fff' },
-  { name: 'พฤหัส', en: 'Jupiter', icon: '🌀', color: '#3b82f6', text: '#fff' },
-  { name: 'ศุกร์', en: 'Venus', icon: '💜', color: '#d946ef', text: '#fff' },
-  { name: 'เสาร์', en: 'Saturn', icon: '🪐', color: '#374151', text: '#fff' },
+const PLANETS=[
+  {name:'อาทิตย์',en:'Sun',icon:'☀️',color:'#f59e0b',text:'#fff'},
+  {name:'จันทร์',en:'Moon',icon:'🌙',color:'#94a3b8',text:'#fff'},
+  {name:'อังคาร',en:'Mars',icon:'🔴',color:'#ef4444',text:'#fff'},
+  {name:'พุธ',en:'Mercury',icon:'⚡',color:'#8b5cf6',text:'#fff'},
+  {name:'พฤหัส',en:'Jupiter',icon:'🌀',color:'#3b82f6',text:'#fff'},
+  {name:'ศุกร์',en:'Venus',icon:'💜',color:'#d946ef',text:'#fff'},
+  {name:'เสาร์',en:'Saturn',icon:'🪐',color:'#374151',text:'#fff'},
 ];
-const CHALDEAN = [2, 1, 4, 6, 0, 5, 3];
-let selectedPlanet = null;
-let allHours = [];
+const CHALDEAN=[2,1,4,6,0,5,3];
+let selectedPlanet=null, allHours=[];
 
 async function calcHours() {
-  const city = document.getElementById('city-input').value.trim() || 'Bangkok';
-  document.getElementById('sun-info').textContent = '⏳ กำลังคำนวณ...';
+  const city=document.getElementById('city-input').value.trim()||'Bangkok';
+  document.getElementById('sun-info').textContent='⏳ กำลังคำนวณ...';
   try {
-    const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`);
-    const geoData = await geoRes.json();
-    if (!geoData.length) { document.getElementById('sun-info').textContent = '❌ ไม่พบเมืองนี้'; return; }
-    const lat = parseFloat(geoData[0].lat), lon = parseFloat(geoData[0].lon);
-    const now = new Date();
-    const { sunrise, sunset } = getSunTimes(lat, lon, now);
-    document.getElementById('sun-info').textContent = `📍 ${geoData[0].display_name.split(',')[0]} | 🌅 ${fmtTime(sunrise)} | 🌇 ${fmtTime(sunset)}`;
-    allHours = calcPlanetaryHours(sunrise, sunset, now);
-    renderHours(allHours);
-    renderPlanetButtons();
-    renderBestTimes(allHours);
-    document.getElementById('planet-filter').style.display = 'block';
-    document.getElementById('hours-card').style.display = 'block';
-    document.getElementById('best-times-card').style.display = 'block';
-  } catch(e) {
-    document.getElementById('sun-info').textContent = '❌ เกิดข้อผิดพลาด';
-  }
+    const geoRes=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`);
+    const geoData=await geoRes.json();
+    if(!geoData.length){document.getElementById('sun-info').textContent='❌ ไม่พบเมืองนี้';return;}
+    const lat=parseFloat(geoData[0].lat),lon=parseFloat(geoData[0].lon);
+    const now=new Date();
+    const {sunrise,sunset}=getSunTimes(lat,lon,now);
+    document.getElementById('sun-info').textContent=`📍 ${geoData[0].display_name.split(',')[0]} | 🌅 ${fmtTime(sunrise)} | 🌇 ${fmtTime(sunset)}`;
+    allHours=calcPlanetaryHours(sunrise,sunset,now);
+    renderHours(allHours); renderPlanetButtons(); renderBestTimes(allHours);
+    ['planet-filter','hours-card','best-times-card'].forEach(id=>document.getElementById(id).style.display='block');
+  } catch(e) { document.getElementById('sun-info').textContent='❌ เกิดข้อผิดพลาด'; }
 }
 
-function getSunTimes(lat, lon, date) {
-  const rad = Math.PI/180;
-  const dayOfYear = Math.floor((date - new Date(date.getFullYear(),0,0))/86400000);
-  const B = (360/365)*(dayOfYear-81)*rad;
-  const eot = 9.87*Math.sin(2*B)-7.53*Math.cos(B)-1.5*Math.sin(B);
-  const decl = 23.45*Math.sin(B)*rad;
-  const ha = Math.acos(-Math.tan(lat*rad)*Math.tan(decl))/rad;
-  const tz = date.getTimezoneOffset()/-60;
-  const noon = 12-(lon/15-tz)-eot/60;
-  const toDate = h => { const d = new Date(date); d.setHours(0,0,0,0); d.setTime(d.getTime()+h*3600000); return d; };
-  return { sunrise: toDate(noon-ha/15), sunset: toDate(noon+ha/15) };
+function getSunTimes(lat,lon,date) {
+  const rad=Math.PI/180;
+  const doy=Math.floor((date-new Date(date.getFullYear(),0,0))/86400000);
+  const B=(360/365)*(doy-81)*rad;
+  const eot=9.87*Math.sin(2*B)-7.53*Math.cos(B)-1.5*Math.sin(B);
+  const decl=23.45*Math.sin(B)*rad;
+  const ha=Math.acos(-Math.tan(lat*rad)*Math.tan(decl))/rad;
+  const tz=date.getTimezoneOffset()/-60;
+  const noon=12-(lon/15-tz)-eot/60;
+  const toDate=h=>{const d=new Date(date);d.setHours(0,0,0,0);d.setTime(d.getTime()+h*3600000);return d;};
+  return{sunrise:toDate(noon-ha/15),sunset:toDate(noon+ha/15)};
 }
 
-function calcPlanetaryHours(sunrise, sunset, ref) {
-  const dayMs = sunset-sunrise, nightMs = 86400000-dayMs;
-  const dayH = dayMs/12, nightH = nightMs/12;
-  const jsDay = ref.getDay();
-  const start = CHALDEAN.indexOf(jsDay);
-  const hours = [];
-  for (let i = 0; i < 24; i++) {
-    const pidx = CHALDEAN[(start+i)%7];
-    const isDay = i < 12;
-    const s = isDay ? new Date(sunrise.getTime()+i*dayH) : new Date(sunset.getTime()+(i-12)*nightH);
-    const e = isDay ? new Date(sunrise.getTime()+(i+1)*dayH) : new Date(sunset.getTime()+(i-11)*nightH);
-    hours.push({ hour: i+1, planet: PLANETS[pidx], start: s, end: e, isDay });
-  }
-  return hours;
+function calcPlanetaryHours(sunrise,sunset,ref) {
+  const dayMs=sunset-sunrise,nightMs=86400000-dayMs;
+  const dayH=dayMs/12,nightH=nightMs/12;
+  const start=CHALDEAN.indexOf(ref.getDay());
+  return Array.from({length:24},(_,i)=>{
+    const pidx=CHALDEAN[(start+i)%7];
+    const isDay=i<12;
+    const s=isDay?new Date(sunrise.getTime()+i*dayH):new Date(sunset.getTime()+(i-12)*nightH);
+    const e=isDay?new Date(sunrise.getTime()+(i+1)*dayH):new Date(sunset.getTime()+(i-11)*nightH);
+    return{hour:i+1,planet:PLANETS[pidx],start:s,end:e,isDay};
+  });
 }
 
-function fmtTime(d) { return d.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }); }
+function fmtTime(d){return d.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});}
 
 function renderHours(hours) {
-  const now = new Date();
-  const list = document.getElementById('hours-list'); list.innerHTML = '';
-  hours.forEach(h => {
-    if (selectedPlanet && h.planet.en !== selectedPlanet) return;
-    const isCurrent = now >= h.start && now < h.end;
-    const row = document.createElement('div'); row.className = 'hour-row'+(isCurrent?' current':'');
-    row.innerHTML = `<span>${h.isDay?'☀️':'🌙'} ชั่วโมงที่ ${h.hour}</span>
+  const now=new Date(),list=document.getElementById('hours-list');list.innerHTML='';
+  hours.forEach(h=>{
+    if(selectedPlanet&&h.planet.en!==selectedPlanet)return;
+    const isCurrent=now>=h.start&&now<h.end;
+    const row=document.createElement('div');row.className='hour-row'+(isCurrent?' current':'');
+    row.innerHTML=`<span>${h.isDay?'☀️':'🌙'} ชั่วโมงที่ ${h.hour}</span>
       <span style="color:#9ca3af">${fmtTime(h.start)} – ${fmtTime(h.end)}</span>
       <span class="planet-badge" style="background:${h.planet.color}">${h.planet.icon} ${h.planet.name}</span>
       ${isCurrent?'<span style="color:#a855f7;font-size:11px">◀ ตอนนี้</span>':''}`;
@@ -279,35 +569,35 @@ function renderHours(hours) {
 }
 
 function renderPlanetButtons() {
-  const c = document.getElementById('planet-buttons'); c.innerHTML = '';
-  const all = document.createElement('div');
-  all.className = 'planet-card'+(selectedPlanet?'':' selected');
-  all.style.cssText = 'background:#f5f0ff;grid-column:span 2;border:1.5px solid #e9d5ff';
-  all.innerHTML = `<div class="planet-icon">🌍</div><div class="planet-name" style="color:#7e22ce">แสดงทั้งหมด</div>`;
-  all.onclick = () => { selectedPlanet = null; renderHours(allHours); renderPlanetButtons(); };
+  const c=document.getElementById('planet-buttons');c.innerHTML='';
+  const all=document.createElement('div');
+  all.className='planet-card'+(selectedPlanet?'':' selected');
+  all.style.cssText='background:#f5f0ff;grid-column:span 2;border:1.5px solid #e9d5ff';
+  all.innerHTML=`<div class="planet-icon">🌍</div><div class="planet-name" style="color:#7e22ce">แสดงทั้งหมด</div>`;
+  all.onclick=()=>{selectedPlanet=null;renderHours(allHours);renderPlanetButtons();};
   c.appendChild(all);
-  PLANETS.forEach(p => {
-    const btn = document.createElement('div');
-    btn.className = 'planet-card'+(selectedPlanet===p.en?' selected':'');
-    btn.style.cssText = `background:${p.color}22;border:1.5px solid ${p.color}44`;
-    const times = allHours.filter(h => h.planet.en === p.en);
-    btn.innerHTML = `<div class="planet-icon">${p.icon}</div>
+  PLANETS.forEach(p=>{
+    const btn=document.createElement('div');
+    btn.className='planet-card'+(selectedPlanet===p.en?' selected':'');
+    btn.style.cssText=`background:${p.color}22;border:1.5px solid ${p.color}44`;
+    const times=allHours.filter(h=>h.planet.en===p.en);
+    btn.innerHTML=`<div class="planet-icon">${p.icon}</div>
       <div class="planet-name" style="color:${p.color}">${p.name}</div>
       <div class="planet-time" style="color:${p.color}">${times.length} ชั่วโมง</div>`;
-    btn.onclick = () => { selectedPlanet = p.en; renderHours(allHours); renderPlanetButtons(); };
+    btn.onclick=()=>{selectedPlanet=p.en;renderHours(allHours);renderPlanetButtons();};
     c.appendChild(btn);
   });
 }
 
 function renderBestTimes(hours) {
-  const c = document.getElementById('best-times'); c.innerHTML = '';
-  ['Venus','Jupiter','Sun'].forEach(en => {
-    const p = PLANETS.find(x => x.en===en);
-    const times = hours.filter(h => h.planet.en===en);
-    const div = document.createElement('div');
-    div.className = 'best-box';
-    div.style.cssText = `background:${p.color}15;border:1px solid ${p.color}30;margin-bottom:8px`;
-    div.innerHTML = `<strong style="color:${p.color}">${p.icon} ดาว${p.name}</strong><br>`+
+  const c=document.getElementById('best-times');c.innerHTML='';
+  ['Venus','Jupiter','Sun'].forEach(en=>{
+    const p=PLANETS.find(x=>x.en===en);
+    const times=hours.filter(h=>h.planet.en===en);
+    const div=document.createElement('div');
+    div.className='best-box';
+    div.style.cssText=`background:${p.color}15;border:1px solid ${p.color}30;margin-bottom:8px`;
+    div.innerHTML=`<strong style="color:${p.color}">${p.icon} ดาว${p.name}</strong><br>`+
       times.map(h=>`<span style="font-size:13px;color:#6b7280">⏰ ${fmtTime(h.start)} – ${fmtTime(h.end)} ${h.isDay?'🌤️':'🌙'}</span>`).join('<br>');
     c.appendChild(div);
   });
