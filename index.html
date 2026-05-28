@@ -10,9 +10,12 @@ body { font-family: sans-serif; background: #f5f5f5; padding: 20px; }
 h1 { color: #e60023; text-align: center; margin-bottom: 6px; font-size: 28px; }
 .subtitle { text-align: center; color: #888; margin-bottom: 24px; }
 .card { background: white; border-radius: 12px; padding: 20px; max-width: 600px; margin: 0 auto 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-label { display: block; font-weight: bold; margin-bottom: 6px; color: #333; }
-input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; margin-bottom: 12px; }
-button { background: #e60023; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 15px; cursor: pointer; width: 100%; }
+label { display: block; font-weight: bold; margin-bottom: 6px; color: #333; margin-top: 12px; }
+input[type=text] { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; }
+.upload-box { border: 2px dashed #ddd; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; color: #888; margin-bottom: 4px; }
+.upload-box:hover { border-color: #e60023; color: #e60023; }
+#preview { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 10px; display: none; }
+button { background: #e60023; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 16px; }
 button:hover { background: #c0001e; }
 button:disabled { background: #ccc; }
 .pins-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 760px; margin: 0 auto; }
@@ -21,173 +24,99 @@ button:disabled { background: #ccc; }
 canvas { display: block; width: 100%; }
 .dl-btn { display: block; margin: 8px 12px 12px; background: #e60023; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 13px; cursor: pointer; text-align: center; text-decoration: none; }
 .dl-btn:hover { background: #c0001e; }
-.loading { text-align: center; padding: 20px; color: #888; }
-.error { color: #e60023; text-align: center; padding: 10px; }
 </style>
 </head>
 <body>
 
 <h1>🎨 PinsFlow</h1>
-<p class="subtitle">Generate Pinterest Pins จากสินค้า Etsy</p>
+<p class="subtitle">Generate Pinterest Pins สำหรับ VGreyDigitalStudio</p>
 
 <div class="card">
-  <label>วาง URL สินค้า Etsy ที่นี่</label>
-  <input type="text" id="etsy-url" placeholder="https://www.etsy.com/listing/123456/ชื่อสินค้า" />
+  <label>📷 อัปโหลดรูปสินค้า</label>
+  <div class="upload-box" onclick="document.getElementById('img-input').click()">
+    กดเพื่อเลือกรูปสินค้า
+  </div>
+  <input type="file" id="img-input" accept="image/*" style="display:none" onchange="previewImage(event)">
+  <img id="preview" />
+
+  <label>✏️ ชื่อสินค้า</label>
+  <input type="text" id="title-input" placeholder="เช่น Statue of Liberty Sketch Print" />
+
+  <label>🔗 ลิงก์ Etsy ของสินค้านี้</label>
+  <input type="text" id="url-input" placeholder="https://www.etsy.com/listing/..." />
+
   <button id="gen-btn" onclick="generatePins()">✨ Generate Pins</button>
-  <p id="error-msg" class="error"></p>
 </div>
 
 <div id="output"></div>
 
 <script>
+let loadedImage = null;
+
 const STYLES = [
-  { name: "Classic White", bg: "#ffffff", text: "#222222", accent: "#e60023", font: "bold 22px sans-serif", sub: "16px sans-serif" },
-  { name: "Dark Minimal", bg: "#1a1a1a", text: "#ffffff", accent: "#e60023", font: "bold 22px sans-serif", sub: "16px sans-serif" },
-  { name: "Soft Pink", bg: "#fff0f3", text: "#5c1a2e", accent: "#e60023", font: "bold 22px Georgia, serif", sub: "16px Georgia, serif" },
-  { name: "Forest Green", bg: "#1e3a2f", text: "#e8f5e9", accent: "#81c784", font: "bold 22px sans-serif", sub: "16px sans-serif" },
+  { name: "Classic White", bg: "#ffffff", text: "#222222", accent: "#e60023" },
+  { name: "Dark Minimal", bg: "#1a1a1a", text: "#ffffff", accent: "#e60023" },
+  { name: "Soft Pink", bg: "#fff0f3", text: "#5c1a2e", accent: "#c0001e" },
+  { name: "Forest Green", bg: "#1e3a2f", text: "#e8f5e9", accent: "#81c784" },
+  { name: "Cream Vintage", bg: "#fdf6e3", text: "#3b2f00", accent: "#b5860d" },
+  { name: "Deep Navy", bg: "#0d1b2a", text: "#e0e8f0", accent: "#4fc3f7" },
 ];
 
-async function generatePins() {
-  const url = document.getElementById('etsy-url').value.trim();
-  const errEl = document.getElementById('error-msg');
-  const btn = document.getElementById('gen-btn');
-  const output = document.getElementById('output');
-
-  errEl.textContent = '';
-  output.innerHTML = '<p class="loading">⏳ กำลังดึงข้อมูลสินค้า...</p>';
-  btn.disabled = true;
-
-  if (!url.includes('etsy.com/listing')) {
-    errEl.textContent = '❌ กรุณาวาง URL สินค้า Etsy เช่น https://www.etsy.com/listing/...';
-    output.innerHTML = '';
-    btn.disabled = false;
-    return;
-  }
-
-  // ดึง listing ID จาก URL
-  const match = url.match(/listing\/(\d+)/);
-  if (!match) {
-    errEl.textContent = '❌ ไม่พบ listing ID ใน URL นี้';
-    output.innerHTML = '';
-    btn.disabled = false;
-    return;
-  }
-
-  const listingId = match[1];
-
-  // ดึงข้อมูลผ่าน allorigins proxy
-  try {
-    const apiUrl = `https://openapi.etsy.com/v3/application/listings/${listingId}?includes=Images`;
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
-    
-    // ดึงรูปภาพจาก URL โดยตรงผ่าน proxy
-    const imgProxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-    const pageRes = await fetch(imgProxyUrl);
-    const html = await pageRes.text();
-
-    // Parse ชื่อสินค้าจาก HTML
-    const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/);
-    let title = titleMatch ? titleMatch[1].replace(' | Etsy', '').replace(/&amp;/g, '&').trim() : 'สินค้า VGreyDigitalStudio';
-    if (title.length > 50) title = title.substring(0, 47) + '...';
-
-    // Parse รูปจาก og:image
-    const imgMatch = html.match(/<meta[^>]+property="og:image"[^>]+content="([^"]+)"/);
-    const imgUrl = imgMatch ? imgMatch[1] : null;
-
-    if (!imgUrl) {
-      errEl.textContent = '❌ ไม่สามารถดึงรูปภาพได้ ลองใหม่อีกครั้ง';
-      output.innerHTML = '';
-      btn.disabled = false;
-      return;
-    }
-
-    // โหลดรูป
-    output.innerHTML = '<p class="loading">🎨 กำลัง generate pins...</p>';
-    const img = await loadImage(`https://api.allorigins.win/raw?url=${encodeURIComponent(imgUrl)}`);
-
-    // สร้าง pins
-    renderPins(img, title, url);
-
-  } catch (e) {
-    errEl.textContent = '❌ เกิดข้อผิดพลาด: ' + e.message;
-    output.innerHTML = '';
-  }
-
-  btn.disabled = false;
+function previewImage(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    const img = document.getElementById('preview');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    const image = new Image();
+    image.onload = () => { loadedImage = image; };
+    image.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
 }
 
-function loadImage(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error('โหลดรูปไม่ได้'));
-    img.src = src;
-  });
-}
-
-function renderPins(img, title, etsyUrl) {
+function generatePins() {
+  const title = document.getElementById('title-input').value.trim();
+  const url = document.getElementById('url-input').value.trim();
   const output = document.getElementById('output');
-  output.innerHTML = `<p style="text-align:center;margin-bottom:16px;color:#555;">✅ Generate สำเร็จ! ${STYLES.length} สไตล์ — กดดาวน์โหลดได้เลย</p>`;
-  
+
+  if (!loadedImage) { alert('กรุณาอัปโหลดรูปสินค้าก่อนนะ'); return; }
+  if (!title) { alert('กรุณาใส่ชื่อสินค้า'); return; }
+  if (!url) { alert('กรุณาใส่ลิงก์ Etsy'); return; }
+
+  output.innerHTML = '';
   const grid = document.createElement('div');
   grid.className = 'pins-grid';
+
+  // ดาวน์โหลดทั้งหมด
+  const dlAllBtn = document.createElement('button');
+  dlAllBtn.textContent = '⬇️ ดาวน์โหลดทั้งหมด (ZIP)';
+  dlAllBtn.style.cssText = 'max-width:600px;margin:0 auto 16px;display:block;';
+  dlAllBtn.onclick = () => downloadAll(title);
+  output.appendChild(dlAllBtn);
 
   STYLES.forEach((style, i) => {
     const canvas = document.createElement('canvas');
     canvas.width = 600;
     canvas.height = 900;
+    canvas.id = 'canvas-' + i;
     const ctx = canvas.getContext('2d');
+    drawPin(ctx, loadedImage, title, url, style);
 
-    // พื้นหลัง
-    ctx.fillStyle = style.bg;
-    ctx.fillRect(0, 0, 600, 900);
-
-    // วาดรูปสินค้า (ตรงกลาง สูง 500px)
-    const imgH = 520;
-    const imgW = 600;
-    const scale = Math.max(imgW / img.width, imgH / img.height);
-    const drawW = img.width * scale;
-    const drawH = img.height * scale;
-    const offsetX = (imgW - drawW) / 2;
-    const offsetY = (imgH - drawH) / 2;
-    ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
-
-    // overlay gradient ด้านล่าง
-    const grad = ctx.createLinearGradient(0, 400, 0, 520);
-    grad.addColorStop(0, 'rgba(0,0,0,0)');
-    grad.addColorStop(1, style.bg);
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 400, 600, 120);
-
-    // เส้น accent
-    ctx.fillStyle = style.accent;
-    ctx.fillRect(40, 545, 80, 4);
-
-    // ชื่อสินค้า
-    ctx.fillStyle = style.text;
-    ctx.font = style.font;
-    wrapText(ctx, title, 40, 580, 520, 30);
-
-    // ลิงก์ Etsy
-    ctx.fillStyle = style.accent;
-    ctx.font = style.sub;
-    const shortUrl = 'etsy.com/shop/VGreyDigitalStudio';
-    ctx.fillText(shortUrl, 40, 860);
-
-    // ห่อใน card
     const wrap = document.createElement('div');
     wrap.className = 'pin-wrap';
 
     const lbl = document.createElement('div');
     lbl.className = 'pin-label';
-    lbl.textContent = `🎨 ${style.name}`;
+    lbl.textContent = '🎨 ' + style.name;
 
     const dlBtn = document.createElement('a');
     dlBtn.className = 'dl-btn';
     dlBtn.textContent = '⬇️ ดาวน์โหลด PNG';
     dlBtn.href = canvas.toDataURL('image/png');
-    dlBtn.download = `pin-${style.name.replace(/ /g,'-').toLowerCase()}-${Date.now()}.png`;
+    dlBtn.download = `pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
 
     wrap.appendChild(lbl);
     wrap.appendChild(canvas);
@@ -198,20 +127,68 @@ function renderPins(img, title, etsyUrl) {
   output.appendChild(grid);
 }
 
-function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+function drawPin(ctx, img, title, url, style) {
+  const W = 600, H = 900;
+
+  // พื้นหลัง
+  ctx.fillStyle = style.bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // รูปสินค้า
+  const imgH = 520;
+  const scale = Math.max(W / img.width, imgH / img.height);
+  const drawW = img.width * scale;
+  const drawH = img.height * scale;
+  const ox = (W - drawW) / 2;
+  const oy = (imgH - drawH) / 2;
+  ctx.drawImage(img, ox, oy, drawW, drawH);
+
+  // gradient overlay
+  const grad = ctx.createLinearGradient(0, 380, 0, 520);
+  grad.addColorStop(0, 'rgba(0,0,0,0)');
+  grad.addColorStop(1, style.bg);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 380, W, 140);
+
+  // เส้น accent
+  ctx.fillStyle = style.accent;
+  ctx.fillRect(40, 548, 80, 4);
+
+  // ชื่อสินค้า
+  ctx.fillStyle = style.text;
+  ctx.font = 'bold 24px sans-serif';
+  wrapText(ctx, title, 40, 585, 520, 32);
+
+  // ลิงก์
+  ctx.fillStyle = style.accent;
+  ctx.font = '15px sans-serif';
+  const shortUrl = url.length > 55 ? url.substring(0, 52) + '...' : url;
+  ctx.fillText(shortUrl, 40, 860);
+}
+
+function wrapText(ctx, text, x, y, maxW, lh) {
   const words = text.split(' ');
   let line = '';
-  for (let n = 0; n < words.length; n++) {
-    const testLine = line + words[n] + ' ';
-    if (ctx.measureText(testLine).width > maxWidth && n > 0) {
-      ctx.fillText(line, x, y);
-      line = words[n] + ' ';
-      y += lineHeight;
-    } else {
-      line = testLine;
-    }
+  for (let w of words) {
+    const test = line + w + ' ';
+    if (ctx.measureText(test).width > maxW && line) {
+      ctx.fillText(line.trim(), x, y);
+      line = w + ' ';
+      y += lh;
+      if (y > 820) break;
+    } else line = test;
   }
-  ctx.fillText(line, x, y);
+  ctx.fillText(line.trim(), x, y);
+}
+
+function downloadAll(title) {
+  STYLES.forEach((style, i) => {
+    const canvas = document.getElementById('canvas-' + i);
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
+    a.click();
+  });
 }
 </script>
 </body>
