@@ -6,53 +6,114 @@
 <title>PinsFlow - VGreyDigitalStudio</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: sans-serif; background: #f5f5f5; padding: 20px; }
-h1 { color: #e60023; text-align: center; margin-bottom: 6px; font-size: 28px; }
-.subtitle { text-align: center; color: #888; margin-bottom: 24px; }
-.card { background: white; border-radius: 12px; padding: 20px; max-width: 600px; margin: 0 auto 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-label { display: block; font-weight: bold; margin-bottom: 6px; color: #333; margin-top: 12px; }
-input[type=text] { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; }
-.upload-box { border: 2px dashed #ddd; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; color: #888; margin-bottom: 4px; }
+body { font-family: sans-serif; background: #f5f5f5; }
+.nav { background: #e60023; padding: 14px 20px; display: flex; gap: 10px; }
+.nav button { background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; }
+.nav button.active, .nav button:hover { background: white; color: #e60023; }
+.page { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
+.page.active { display: block; }
+h1 { color: #e60023; text-align: center; margin-bottom: 6px; font-size: 26px; }
+.subtitle { text-align: center; color: #888; margin-bottom: 20px; font-size: 14px; }
+.card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+label { display: block; font-weight: bold; margin-bottom: 6px; color: #333; margin-top: 12px; font-size: 14px; }
+input[type=text], input[type=time], select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+.upload-box { border: 2px dashed #ddd; border-radius: 8px; padding: 16px; text-align: center; cursor: pointer; color: #888; }
 .upload-box:hover { border-color: #e60023; color: #e60023; }
-#preview { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 10px; display: none; }
-button { background: #e60023; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 16px; }
-button:hover { background: #c0001e; }
-button:disabled { background: #ccc; }
-.pins-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 760px; margin: 0 auto; }
-.pin-wrap { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.pin-label { padding: 8px 12px; font-size: 13px; color: #555; font-weight: bold; }
+#preview { max-width: 100%; max-height: 180px; border-radius: 8px; margin-top: 10px; display: none; }
+.btn { background: #e60023; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 12px; }
+.btn:hover { background: #c0001e; }
+.btn-outline { background: white; color: #e60023; border: 2px solid #e60023; }
+.btn-outline:hover { background: #fff0f0; }
+.pins-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.pin-wrap { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.pin-label { padding: 8px 12px; font-size: 12px; color: #555; font-weight: bold; }
 canvas { display: block; width: 100%; }
-.dl-btn { display: block; margin: 8px 12px 12px; background: #e60023; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 13px; cursor: pointer; text-align: center; text-decoration: none; }
-.dl-btn:hover { background: #c0001e; }
+.dl-btn { display: block; margin: 6px 10px 10px; background: #e60023; color: white; border: none; padding: 7px; border-radius: 6px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; }
+
+/* Planetary Hours */
+.planet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+.planet-card { border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+.planet-card.selected { border-color: #333; transform: scale(1.03); }
+.planet-card .planet-name { font-weight: bold; font-size: 15px; }
+.planet-card .planet-time { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+.planet-card .planet-icon { font-size: 24px; margin-bottom: 4px; }
+.hours-list { max-height: 300px; overflow-y: auto; }
+.hour-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+.hour-row.current { background: #fff3f3; font-weight: bold; }
+.hour-row .planet-badge { padding: 2px 8px; border-radius: 10px; font-size: 12px; color: white; }
+.location-row { display: flex; gap: 8px; align-items: flex-end; }
+.location-row input { flex: 1; }
 </style>
 </head>
 <body>
 
-<h1>🎨 PinsFlow</h1>
-<p class="subtitle">Generate Pinterest Pins สำหรับ VGreyDigitalStudio</p>
-
-<div class="card">
-  <label>📷 อัปโหลดรูปสินค้า</label>
-  <div class="upload-box" onclick="document.getElementById('img-input').click()">
-    กดเพื่อเลือกรูปสินค้า
-  </div>
-  <input type="file" id="img-input" accept="image/*" style="display:none" onchange="previewImage(event)">
-  <img id="preview" />
-
-  <label>✏️ ชื่อสินค้า</label>
-  <input type="text" id="title-input" placeholder="เช่น Statue of Liberty Sketch Print" />
-
-  <label>🔗 ลิงก์ Etsy ของสินค้านี้</label>
-  <input type="text" id="url-input" placeholder="https://www.etsy.com/listing/..." />
-
-  <button id="gen-btn" onclick="generatePins()">✨ Generate Pins</button>
+<div class="nav">
+  <button class="active" onclick="showPage('pins')">🎨 Generate Pins</button>
+  <button onclick="showPage('planets')">🌟 Planetary Hours</button>
 </div>
 
-<div id="output"></div>
+<!-- PAGE: Generate Pins -->
+<div id="page-pins" class="page active">
+  <br>
+  <h1>🎨 PinsFlow</h1>
+  <p class="subtitle">Generate Pinterest Pins สำหรับ VGreyDigitalStudio</p>
+  <div class="card">
+    <label>📷 อัปโหลดรูปสินค้า</label>
+    <div class="upload-box" onclick="document.getElementById('img-input').click()">กดเพื่อเลือกรูปสินค้า</div>
+    <input type="file" id="img-input" accept="image/*" style="display:none" onchange="previewImage(event)">
+    <img id="preview" />
+    <label>✏️ ชื่อสินค้า</label>
+    <input type="text" id="title-input" placeholder="เช่น Statue of Liberty Sketch Print" />
+    <label>🔗 ลิงก์ Etsy ของสินค้านี้</label>
+    <input type="text" id="url-input" placeholder="https://www.etsy.com/listing/..." />
+    <button class="btn" onclick="generatePins()">✨ Generate Pins</button>
+  </div>
+  <div id="output"></div>
+</div>
+
+<!-- PAGE: Planetary Hours -->
+<div id="page-planets" class="page">
+  <br>
+  <h1>🌟 Planetary Hours</h1>
+  <p class="subtitle">เวลาดาวสำหรับการโพส Pinterest</p>
+
+  <div class="card">
+    <label>📍 เมือง / ที่อยู่</label>
+    <div class="location-row">
+      <input type="text" id="city-input" placeholder="Bangkok" value="Bangkok" />
+      <button class="btn" style="width:auto;margin:0;padding:10px 16px" onclick="calcHours()">คำนวณ</button>
+    </div>
+    <div id="sun-info" style="margin-top:10px;font-size:13px;color:#888;text-align:center"></div>
+  </div>
+
+  <div id="planet-filter" class="card" style="display:none">
+    <label>🪐 กรองตามดาว (กดเลือก)</label>
+    <div class="planet-grid" id="planet-buttons"></div>
+  </div>
+
+  <div id="hours-card" class="card" style="display:none">
+    <label>⏰ ตารางชั่วโมงดาววันนี้</label>
+    <div class="hours-list" id="hours-list"></div>
+  </div>
+
+  <div id="best-times-card" class="card" style="display:none">
+    <label>💡 เวลาดาวศุกร์และดาวพฤหัสวันนี้ (แนะนำสำหรับ Pinterest)</label>
+    <div id="best-times"></div>
+  </div>
+</div>
 
 <script>
-let loadedImage = null;
+// ===== PAGE NAVIGATION =====
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'planets') calcHours();
+}
 
+// ===== GENERATE PINS =====
+let loadedImage = null;
 const STYLES = [
   { name: "Classic White", bg: "#ffffff", text: "#222222", accent: "#e60023" },
   { name: "Dark Minimal", bg: "#1a1a1a", text: "#ffffff", accent: "#e60023" },
@@ -66,7 +127,7 @@ function previewImage(e) {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(ev) {
+  reader.onload = ev => {
     const img = document.getElementById('preview');
     img.src = ev.target.result;
     img.style.display = 'block';
@@ -81,113 +142,221 @@ function generatePins() {
   const title = document.getElementById('title-input').value.trim();
   const url = document.getElementById('url-input').value.trim();
   const output = document.getElementById('output');
-
   if (!loadedImage) { alert('กรุณาอัปโหลดรูปสินค้าก่อนนะ'); return; }
   if (!title) { alert('กรุณาใส่ชื่อสินค้า'); return; }
   if (!url) { alert('กรุณาใส่ลิงก์ Etsy'); return; }
-
   output.innerHTML = '';
-  const grid = document.createElement('div');
-  grid.className = 'pins-grid';
-
-  // ดาวน์โหลดทั้งหมด
-  const dlAllBtn = document.createElement('button');
-  dlAllBtn.textContent = '⬇️ ดาวน์โหลดทั้งหมด (ZIP)';
-  dlAllBtn.style.cssText = 'max-width:600px;margin:0 auto 16px;display:block;';
-  dlAllBtn.onclick = () => downloadAll(title);
-  output.appendChild(dlAllBtn);
-
+  const dlAll = document.createElement('button');
+  dlAll.className = 'btn'; dlAll.style.cssText = 'max-width:600px;margin:0 auto 12px;display:block';
+  dlAll.textContent = '⬇️ ดาวน์โหลดทั้งหมด'; dlAll.onclick = () => downloadAll();
+  output.appendChild(dlAll);
+  const grid = document.createElement('div'); grid.className = 'pins-grid';
   STYLES.forEach((style, i) => {
     const canvas = document.createElement('canvas');
-    canvas.width = 600;
-    canvas.height = 900;
-    canvas.id = 'canvas-' + i;
-    const ctx = canvas.getContext('2d');
-    drawPin(ctx, loadedImage, title, url, style);
-
-    const wrap = document.createElement('div');
-    wrap.className = 'pin-wrap';
-
-    const lbl = document.createElement('div');
-    lbl.className = 'pin-label';
-    lbl.textContent = '🎨 ' + style.name;
-
-    const dlBtn = document.createElement('a');
-    dlBtn.className = 'dl-btn';
-    dlBtn.textContent = '⬇️ ดาวน์โหลด PNG';
-    dlBtn.href = canvas.toDataURL('image/png');
-    dlBtn.download = `pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
-
-    wrap.appendChild(lbl);
-    wrap.appendChild(canvas);
-    wrap.appendChild(dlBtn);
-    grid.appendChild(wrap);
+    canvas.width = 600; canvas.height = 900; canvas.id = 'canvas-' + i;
+    drawPin(canvas.getContext('2d'), loadedImage, title, url, style);
+    const wrap = document.createElement('div'); wrap.className = 'pin-wrap';
+    const lbl = document.createElement('div'); lbl.className = 'pin-label'; lbl.textContent = '🎨 ' + style.name;
+    const dl = document.createElement('a'); dl.className = 'dl-btn'; dl.textContent = '⬇️ ดาวน์โหลด PNG';
+    dl.href = canvas.toDataURL('image/png'); dl.download = `pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
+    wrap.appendChild(lbl); wrap.appendChild(canvas); wrap.appendChild(dl); grid.appendChild(wrap);
   });
-
   output.appendChild(grid);
 }
 
 function drawPin(ctx, img, title, url, style) {
   const W = 600, H = 900;
-
-  // พื้นหลัง
-  ctx.fillStyle = style.bg;
-  ctx.fillRect(0, 0, W, H);
-
-  // รูปสินค้า
-  const imgH = 520;
-  const scale = Math.max(W / img.width, imgH / img.height);
-  const drawW = img.width * scale;
-  const drawH = img.height * scale;
-  const ox = (W - drawW) / 2;
-  const oy = (imgH - drawH) / 2;
-  ctx.drawImage(img, ox, oy, drawW, drawH);
-
-  // gradient overlay
+  ctx.fillStyle = style.bg; ctx.fillRect(0, 0, W, H);
+  const imgH = 520, scale = Math.max(W/img.width, imgH/img.height);
+  const drawW = img.width*scale, drawH = img.height*scale;
+  ctx.drawImage(img, (W-drawW)/2, (imgH-drawH)/2, drawW, drawH);
   const grad = ctx.createLinearGradient(0, 380, 0, 520);
-  grad.addColorStop(0, 'rgba(0,0,0,0)');
-  grad.addColorStop(1, style.bg);
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 380, W, 140);
-
-  // เส้น accent
-  ctx.fillStyle = style.accent;
-  ctx.fillRect(40, 548, 80, 4);
-
-  // ชื่อสินค้า
-  ctx.fillStyle = style.text;
-  ctx.font = 'bold 24px sans-serif';
+  grad.addColorStop(0, 'rgba(0,0,0,0)'); grad.addColorStop(1, style.bg);
+  ctx.fillStyle = grad; ctx.fillRect(0, 380, W, 140);
+  ctx.fillStyle = style.accent; ctx.fillRect(40, 548, 80, 4);
+  ctx.fillStyle = style.text; ctx.font = 'bold 24px sans-serif';
   wrapText(ctx, title, 40, 585, 520, 32);
-
-  // ลิงก์
-  ctx.fillStyle = style.accent;
-  ctx.font = '15px sans-serif';
-  const shortUrl = url.length > 55 ? url.substring(0, 52) + '...' : url;
-  ctx.fillText(shortUrl, 40, 860);
+  ctx.fillStyle = style.accent; ctx.font = '15px sans-serif';
+  ctx.fillText(url.length > 55 ? url.substring(0,52)+'...' : url, 40, 860);
 }
 
 function wrapText(ctx, text, x, y, maxW, lh) {
-  const words = text.split(' ');
-  let line = '';
+  const words = text.split(' '); let line = '';
   for (let w of words) {
     const test = line + w + ' ';
-    if (ctx.measureText(test).width > maxW && line) {
-      ctx.fillText(line.trim(), x, y);
-      line = w + ' ';
-      y += lh;
-      if (y > 820) break;
-    } else line = test;
+    if (ctx.measureText(test).width > maxW && line) { ctx.fillText(line.trim(), x, y); line = w+' '; y+=lh; if(y>820)break; }
+    else line = test;
   }
   ctx.fillText(line.trim(), x, y);
 }
 
-function downloadAll(title) {
+function downloadAll() {
   STYLES.forEach((style, i) => {
-    const canvas = document.getElementById('canvas-' + i);
     const a = document.createElement('a');
-    a.href = canvas.toDataURL('image/png');
+    a.href = document.getElementById('canvas-'+i).toDataURL('image/png');
     a.download = `pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
     a.click();
+  });
+}
+
+// ===== PLANETARY HOURS =====
+const PLANETS = [
+  { name: 'อาทิตย์', en: 'Sun', icon: '☀️', color: '#f59e0b', text: '#fff' },
+  { name: 'จันทร์',  en: 'Moon', icon: '🌙', color: '#94a3b8', text: '#fff' },
+  { name: 'อังคาร', en: 'Mars', icon: '🔴', color: '#ef4444', text: '#fff' },
+  { name: 'พุธ',    en: 'Mercury', icon: '⚡', color: '#8b5cf6', text: '#fff' },
+  { name: 'พฤหัส', en: 'Jupiter', icon: '🟡', color: '#3b82f6', text: '#fff' },
+  { name: 'ศุกร์',  en: 'Venus', icon: '💚', color: '#10b981', text: '#fff' },
+  { name: 'เสาร์',  en: 'Saturn', icon: '🪐', color: '#374151', text: '#fff' },
+];
+
+// Chaldean order
+const CHALDEAN = [2, 1, 4, 6, 0, 5, 3]; // Sun=0,Moon=1,Mars=2,Mer=3,Jup=4,Ven=5,Sat=6 → index in PLANETS
+
+// Day rulers: Sun=0,Mon=1,Tue=2,Wed=3,Thu=4,Fri=5,Sat=6
+const DAY_RULER = [0, 1, 2, 3, 4, 5, 6]; // index in PLANETS per JS day (0=Sun)
+
+let selectedPlanet = null;
+let allHours = [];
+
+async function calcHours() {
+  const city = document.getElementById('city-input').value.trim() || 'Bangkok';
+  document.getElementById('sun-info').textContent = '⏳ กำลังคำนวณ...';
+
+  try {
+    // ดึง lat/lon จาก city
+    const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`);
+    const geoData = await geoRes.json();
+    if (!geoData.length) { document.getElementById('sun-info').textContent = '❌ ไม่พบเมืองนี้'; return; }
+
+    const lat = parseFloat(geoData[0].lat);
+    const lon = parseFloat(geoData[0].lon);
+
+    // คำนวณ sunrise/sunset
+    const now = new Date();
+    const { sunrise, sunset } = getSunTimes(lat, lon, now);
+
+    document.getElementById('sun-info').textContent =
+      `📍 ${geoData[0].display_name.split(',')[0]} | 🌅 พระอาทิตย์ขึ้น ${fmtTime(sunrise)} | 🌇 ตก ${fmtTime(sunset)}`;
+
+    // คำนวณ planetary hours
+    allHours = calcPlanetaryHours(sunrise, sunset, now);
+    renderHours(allHours);
+    renderPlanetButtons();
+    renderBestTimes(allHours);
+
+    document.getElementById('planet-filter').style.display = 'block';
+    document.getElementById('hours-card').style.display = 'block';
+    document.getElementById('best-times-card').style.display = 'block';
+
+  } catch(e) {
+    document.getElementById('sun-info').textContent = '❌ เกิดข้อผิดพลาด: ' + e.message;
+  }
+}
+
+function getSunTimes(lat, lon, date) {
+  // Solar calculation
+  const rad = Math.PI / 180;
+  const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000);
+  const B = (360/365) * (dayOfYear - 81) * rad;
+  const eot = 9.87*Math.sin(2*B) - 7.53*Math.cos(B) - 1.5*Math.sin(B);
+  const declination = 23.45 * Math.sin(B) * rad;
+  const hourAngle = Math.acos(-Math.tan(lat*rad) * Math.tan(declination)) / rad;
+  const tzOffset = date.getTimezoneOffset() / -60;
+  const solarNoon = 12 - (lon/15 - tzOffset) - eot/60;
+  const sunriseH = solarNoon - hourAngle/15;
+  const sunsetH = solarNoon + hourAngle/15;
+  const toDate = h => { const d = new Date(date); d.setHours(0,0,0,0); d.setTime(d.getTime() + h*3600000); return d; };
+  return { sunrise: toDate(sunriseH), sunset: toDate(sunsetH) };
+}
+
+function calcPlanetaryHours(sunrise, sunset, refDate) {
+  const dayMs = sunset - sunrise;
+  const nightMs = 86400000 - dayMs;
+  const dayHourMs = dayMs / 12;
+  const nightHourMs = nightMs / 12;
+
+  const jsDay = refDate.getDay(); // 0=Sun
+  const dayRulerIdx = jsDay; // ruler planet index in PLANETS array
+  // find starting Chaldean position
+  const chaldeanStart = CHALDEAN.indexOf(dayRulerIdx);
+
+  const hours = [];
+  for (let i = 0; i < 24; i++) {
+    const chaldIdx = (chaldeanStart + i) % 7;
+    const planetIdx = CHALDEAN[chaldIdx];
+    const isDay = i < 12;
+    const start = isDay
+      ? new Date(sunrise.getTime() + i * dayHourMs)
+      : new Date(sunset.getTime() + (i - 12) * nightHourMs);
+    const end = isDay
+      ? new Date(sunrise.getTime() + (i+1) * dayHourMs)
+      : new Date(sunset.getTime() + (i-11) * nightHourMs);
+    hours.push({ hour: i+1, planet: PLANETS[planetIdx], start, end, isDay });
+  }
+  return hours;
+}
+
+function fmtTime(d) {
+  return d.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+}
+
+function renderHours(hours) {
+  const now = new Date();
+  const list = document.getElementById('hours-list');
+  list.innerHTML = '';
+  hours.forEach(h => {
+    const isCurrent = now >= h.start && now < h.end;
+    const filtered = selectedPlanet && h.planet.en !== selectedPlanet;
+    if (filtered) return;
+    const row = document.createElement('div');
+    row.className = 'hour-row' + (isCurrent ? ' current' : '');
+    row.innerHTML = `
+      <span>${h.isDay ? '☀️' : '🌙'} ชั่วโมงที่ ${h.hour}</span>
+      <span>${fmtTime(h.start)} – ${fmtTime(h.end)}</span>
+      <span class="planet-badge" style="background:${h.planet.color}">${h.planet.icon} ${h.planet.name}</span>
+      ${isCurrent ? '<span style="color:#e60023;font-size:12px">◀ ตอนนี้</span>' : ''}
+    `;
+    list.appendChild(row);
+  });
+}
+
+function renderPlanetButtons() {
+  const container = document.getElementById('planet-buttons');
+  container.innerHTML = '';
+  const allBtn = document.createElement('div');
+  allBtn.className = 'planet-card' + (!selectedPlanet ? ' selected' : '');
+  allBtn.style.cssText = 'background:#f3f4f6;grid-column:span 2';
+  allBtn.innerHTML = `<div class="planet-icon">🌍</div><div class="planet-name">แสดงทั้งหมด</div>`;
+  allBtn.onclick = () => { selectedPlanet = null; renderHours(allHours); renderPlanetButtons(); };
+  container.appendChild(allBtn);
+
+  PLANETS.forEach(p => {
+    const btn = document.createElement('div');
+    btn.className = 'planet-card' + (selectedPlanet === p.en ? ' selected' : '');
+    btn.style.cssText = `background:${p.color}`;
+    const times = allHours.filter(h => h.planet.en === p.en);
+    btn.innerHTML = `
+      <div class="planet-icon">${p.icon}</div>
+      <div class="planet-name" style="color:${p.text}">${p.name}</div>
+      <div class="planet-time" style="color:${p.text}">${times.length} ชั่วโมง</div>
+    `;
+    btn.onclick = () => { selectedPlanet = p.en; renderHours(allHours); renderPlanetButtons(); };
+    container.appendChild(btn);
+  });
+}
+
+function renderBestTimes(hours) {
+  const container = document.getElementById('best-times');
+  container.innerHTML = '';
+  ['Venus', 'Jupiter'].forEach(en => {
+    const p = PLANETS.find(x => x.en === en);
+    const times = hours.filter(h => h.planet.en === en);
+    const div = document.createElement('div');
+    div.style.cssText = 'margin-bottom:10px;padding:10px;border-radius:8px;background:' + p.color + '20';
+    div.innerHTML = `<strong style="color:${p.color}">${p.icon} ดาว${p.name}</strong><br>` +
+      times.map(h => `<span style="font-size:13px">⏰ ${fmtTime(h.start)} – ${fmtTime(h.end)} ${h.isDay?'(กลางวัน)':'(กลางคืน)'}</span>`).join('<br>');
+    container.appendChild(div);
   });
 }
 </script>
