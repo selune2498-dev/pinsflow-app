@@ -18,9 +18,11 @@ h1 { color: #7e22ce; text-align: center; margin-bottom: 6px; font-size: 26px; }
 .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(167,139,250,0.15); border: 1.5px solid #ede9fe; }
 label { display: block; font-weight: bold; margin-bottom: 6px; color: #7e22ce; margin-top: 12px; font-size: 14px; }
 input[type=text] { width: 100%; padding: 10px 14px; border: 1.5px solid #e9d5ff; border-radius: 10px; font-size: 14px; outline: none; background: #faf5ff; }
+input[type=range] { width: 100%; accent-color: #a855f7; }
 input:focus { border-color: #c084fc; }
-.upload-box { border: 2px dashed #e9d5ff; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; color: #c084fc; background: #faf5ff; }
+.upload-box { border: 2px dashed #e9d5ff; border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; color: #c084fc; background: #faf5ff; }
 .upload-box:hover { border-color: #c084fc; color: #9333ea; }
+.upload-box.has-file { border-color: #a855f7; background: #faf5ff; color: #7e22ce; }
 .btn { background: #c084fc; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 12px; font-weight: bold; }
 .btn:hover { background: #a855f7; }
 .btn-sm { padding: 7px 14px; font-size: 13px; width: auto; margin-top: 0; border-radius: 8px; }
@@ -28,15 +30,20 @@ input:focus { border-color: #c084fc; }
 .btn-outline:hover { background: #faf5ff; }
 .btn-danger { background: #fce7f3; color: #be185d; border: none; padding: 5px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; }
 .saved-badge { background: #d1fae5; color: #065f46; font-size: 11px; padding: 2px 8px; border-radius: 8px; margin-left: 8px; }
+.wm-preview { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 10px; background: #faf5ff; border-radius: 10px; border: 1px solid #e9d5ff; }
+.wm-preview img { max-height: 50px; max-width: 80px; border-radius: 6px; }
+.wm-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.wm-setting-item label { font-size: 12px; margin-top: 0; margin-bottom: 4px; }
+.position-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; margin-top: 4px; }
+.pos-btn { padding: 6px; border-radius: 6px; border: 1.5px solid #e9d5ff; background: #faf5ff; cursor: pointer; font-size: 11px; color: #7e22ce; text-align: center; }
+.pos-btn.active { background: #c084fc; color: white; border-color: #a855f7; }
 .mockup-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
-.mockup-thumb { border-radius: 12px; overflow: hidden; border: 2px solid #ede9fe; cursor: pointer; background: #faf5ff; }
+.mockup-thumb { border-radius: 12px; overflow: hidden; border: 2px solid #ede9fe; background: #faf5ff; }
 .mockup-thumb:hover { border-color: #c084fc; }
 .mockup-thumb img { width: 100%; display: block; }
-.mockup-thumb .thumb-label { padding: 6px 10px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; display: flex; justify-content: space-between; align-items: center; }
+.thumb-label { padding: 6px 10px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; display: flex; justify-content: space-between; align-items: center; }
 .edit-badge { background: #c084fc; color: white; font-size: 10px; padding: 2px 7px; border-radius: 8px; }
 .no-zone { background: #fef3c7; color: #92400e; font-size: 10px; padding: 2px 7px; border-radius: 8px; }
-.editor-wrap { position: relative; display: inline-block; max-width: 100%; }
-#editor-canvas { border-radius: 10px; border: 2px solid #e9d5ff; cursor: crosshair; max-width: 100%; }
 .result-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .result-item { border-radius: 14px; overflow: hidden; border: 1.5px solid #ede9fe; background: white; }
 .result-item img { width: 100%; display: block; }
@@ -78,28 +85,69 @@ input:focus { border-color: #c084fc; }
 
   <div class="card">
     <label>🎨 Step 1 — อัปโหลดไฟล์ดีไซน์ PNG</label>
-    <div class="upload-box" onclick="document.getElementById('design-input').click()">
+    <div class="upload-box" id="design-box" onclick="document.getElementById('design-input').click()">
       🖼️ กดเพื่อเลือกไฟล์ดีไซน์ PNG
     </div>
     <input type="file" id="design-input" accept="image/*" style="display:none" onchange="loadDesign(event)">
     <img id="design-preview" style="max-height:120px;margin-top:10px;border-radius:8px;display:none">
   </div>
 
+  <!-- Watermark Section -->
+  <div class="card">
+    <label>💧 ลายน้ำ (Watermark) — ไม่บังคับ</label>
+    <div class="upload-box" id="wm-box-mockup" onclick="document.getElementById('wm-input-mockup').click()">
+      🔏 กดเพื่ออัปโหลดไฟล์ลายน้ำ (PNG แบบมีพื้นหลังโปร่งใสจะดีที่สุด)
+    </div>
+    <input type="file" id="wm-input-mockup" accept="image/*" style="display:none" onchange="loadWatermark(event, 'mockup')">
+    <div id="wm-preview-mockup" style="display:none">
+      <div class="wm-preview">
+        <img id="wm-img-mockup">
+        <div>
+          <div style="font-size:13px;color:#7e22ce;font-weight:bold">✅ โหลดลายน้ำแล้ว</div>
+          <button class="btn-danger" style="margin-top:4px" onclick="removeWatermark('mockup')">🗑️ ลบออก</button>
+        </div>
+      </div>
+      <div class="wm-settings">
+        <div class="wm-setting-item">
+          <label>ความโปร่งใส</label>
+          <input type="range" id="wm-opacity-mockup" min="5" max="100" value="30" oninput="document.getElementById('wm-opacity-val-mockup').textContent=this.value+'%'">
+          <span id="wm-opacity-val-mockup" style="font-size:12px;color:#a78bfa">30%</span>
+        </div>
+        <div class="wm-setting-item">
+          <label>ขนาด</label>
+          <input type="range" id="wm-size-mockup" min="5" max="60" value="20" oninput="document.getElementById('wm-size-val-mockup').textContent=this.value+'%'">
+          <span id="wm-size-val-mockup" style="font-size:12px;color:#a78bfa">20%</span>
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <label style="margin-top:0">ตำแหน่ง</label>
+        <div class="position-grid" id="wm-pos-mockup">
+          <div class="pos-btn" onclick="setPos('mockup','top-left')">↖ บนซ้าย</div>
+          <div class="pos-btn" onclick="setPos('mockup','top-center')">↑ บนกลาง</div>
+          <div class="pos-btn" onclick="setPos('mockup','top-right')">↗ บนขวา</div>
+          <div class="pos-btn" onclick="setPos('mockup','center-left')">← กลางซ้าย</div>
+          <div class="pos-btn active" onclick="setPos('mockup','center')">⊙ กลาง</div>
+          <div class="pos-btn" onclick="setPos('mockup','center-right')">→ กลางขวา</div>
+          <div class="pos-btn" onclick="setPos('mockup','bottom-left')">↙ ล่างซ้าย</div>
+          <div class="pos-btn" onclick="setPos('mockup','bottom-center')">↓ ล่างกลาง</div>
+          <div class="pos-btn active" onclick="setPos('mockup','bottom-right')">↘ ล่างขวา</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-      <label style="margin:0">👕 Step 2 — Mockup Templates
-        <span class="saved-badge">💾 บันทึกอัตโนมัติ</span>
-      </label>
+      <label style="margin:0">👕 Step 2 — Mockup Templates <span class="saved-badge">💾 บันทึกอัตโนมัติ</span></label>
       <button class="btn btn-sm btn-outline" onclick="document.getElementById('mockup-input').click()">+ เพิ่ม Mockup</button>
     </div>
     <input type="file" id="mockup-input" accept="image/*" multiple style="display:none" onchange="addMockups(event)">
-    <p style="font-size:12px;color:#a78bfa;margin-top:6px">Mockup จะถูกบันทึกไว้ในเบราว์เซอร์ ไม่หายเมื่อปิดเว็บ 💜</p>
+    <p style="font-size:12px;color:#a78bfa;margin-top:6px">Mockup จะถูกบันทึกไว้ ไม่หายเมื่อปิดเว็บ 💜</p>
     <div class="mockup-grid" id="mockup-grid"></div>
   </div>
 
   <div class="card" id="generate-card" style="display:none">
     <label>✨ Step 3 — Generate!</label>
-    <p style="font-size:13px;color:#a78bfa;margin-bottom:12px">กด Generate แล้วโหลดรูปได้เลย</p>
     <button class="btn" onclick="generateMockups()">✨ Generate Mockups ทั้งหมด</button>
   </div>
 
@@ -135,9 +183,54 @@ input:focus { border-color: #c084fc; }
     <input type="text" id="title-input" placeholder="เช่น Statue of Liberty Sketch Print" />
     <label>🔗 ลิงก์ Etsy</label>
     <input type="text" id="url-input" placeholder="https://www.etsy.com/listing/..." />
-    <button class="btn" onclick="generatePins()">✨ Generate Pins</button>
   </div>
-  <div id="output"></div>
+
+  <!-- Watermark Pins -->
+  <div class="card">
+    <label>💧 ลายน้ำ (Watermark) — ไม่บังคับ</label>
+    <div class="upload-box" id="wm-box-pins" onclick="document.getElementById('wm-input-pins').click()">
+      🔏 กดเพื่ออัปโหลดไฟล์ลายน้ำ
+    </div>
+    <input type="file" id="wm-input-pins" accept="image/*" style="display:none" onchange="loadWatermark(event, 'pins')">
+    <div id="wm-preview-pins" style="display:none">
+      <div class="wm-preview">
+        <img id="wm-img-pins">
+        <div>
+          <div style="font-size:13px;color:#7e22ce;font-weight:bold">✅ โหลดลายน้ำแล้ว</div>
+          <button class="btn-danger" style="margin-top:4px" onclick="removeWatermark('pins')">🗑️ ลบออก</button>
+        </div>
+      </div>
+      <div class="wm-settings">
+        <div class="wm-setting-item">
+          <label>ความโปร่งใส</label>
+          <input type="range" id="wm-opacity-pins" min="5" max="100" value="30" oninput="document.getElementById('wm-opacity-val-pins').textContent=this.value+'%'">
+          <span id="wm-opacity-val-pins" style="font-size:12px;color:#a78bfa">30%</span>
+        </div>
+        <div class="wm-setting-item">
+          <label>ขนาด</label>
+          <input type="range" id="wm-size-pins" min="5" max="60" value="25" oninput="document.getElementById('wm-size-val-pins').textContent=this.value+'%'">
+          <span id="wm-size-val-pins" style="font-size:12px;color:#a78bfa">25%</span>
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <label style="margin-top:0">ตำแหน่ง</label>
+        <div class="position-grid" id="wm-pos-pins">
+          <div class="pos-btn" onclick="setPos('pins','top-left')">↖ บนซ้าย</div>
+          <div class="pos-btn" onclick="setPos('pins','top-center')">↑ บนกลาง</div>
+          <div class="pos-btn" onclick="setPos('pins','top-right')">↗ บนขวา</div>
+          <div class="pos-btn" onclick="setPos('pins','center-left')">← กลางซ้าย</div>
+          <div class="pos-btn" onclick="setPos('pins','center')">⊙ กลาง</div>
+          <div class="pos-btn" onclick="setPos('pins','center-right')">→ กลางขวา</div>
+          <div class="pos-btn" onclick="setPos('pins','bottom-left')">↙ ล่างซ้าย</div>
+          <div class="pos-btn" onclick="setPos('pins','bottom-center')">↓ ล่างกลาง</div>
+          <div class="pos-btn active" onclick="setPos('pins','bottom-right')">↘ ล่างขวา</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" style="max-width:600px;margin:0 auto;display:block" onclick="generatePins()">✨ Generate Pins</button>
+  <div id="output" style="margin-top:16px"></div>
 </div>
 
 <!-- PAGE: Planetary Hours -->
@@ -177,6 +270,63 @@ function showPage(name, btn) {
   if (name === 'planets') calcHours();
 }
 
+// ===== WATERMARK =====
+let watermarks = { mockup: null, pins: null };
+let wmPositions = { mockup: 'center', pins: 'bottom-right' };
+
+function loadWatermark(e, type) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      watermarks[type] = img;
+      document.getElementById(`wm-img-${type}`).src = ev.target.result;
+      document.getElementById(`wm-preview-${type}`).style.display = 'block';
+      document.getElementById(`wm-box-${type}`).className = 'upload-box has-file';
+      document.getElementById(`wm-box-${type}`).textContent = '✅ โหลดลายน้ำแล้ว กดเพื่อเปลี่ยน';
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+function removeWatermark(type) {
+  watermarks[type] = null;
+  document.getElementById(`wm-preview-${type}`).style.display = 'none';
+  document.getElementById(`wm-box-${type}`).className = 'upload-box';
+  document.getElementById(`wm-box-${type}`).textContent = '🔏 กดเพื่ออัปโหลดไฟล์ลายน้ำ';
+}
+
+function setPos(type, pos) {
+  wmPositions[type] = pos;
+  document.querySelectorAll(`#wm-pos-${type} .pos-btn`).forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function drawWatermark(ctx, canvasW, canvasH, type) {
+  const wm = watermarks[type];
+  if (!wm) return;
+  const opacity = parseInt(document.getElementById(`wm-opacity-${type}`).value) / 100;
+  const sizePct = parseInt(document.getElementById(`wm-size-${type}`).value) / 100;
+  const pos = wmPositions[type];
+  const wmW = canvasW * sizePct;
+  const wmH = (wm.height / wm.width) * wmW;
+  const pad = 20;
+  let x = 0, y = 0;
+  if (pos.includes('left')) x = pad;
+  else if (pos.includes('right')) x = canvasW - wmW - pad;
+  else x = (canvasW - wmW) / 2;
+  if (pos.includes('top')) y = pad;
+  else if (pos.includes('bottom')) y = canvasH - wmH - pad;
+  else y = (canvasH - wmH) / 2;
+  ctx.save();
+  ctx.globalAlpha = opacity;
+  ctx.drawImage(wm, x, y, wmW, wmH);
+  ctx.restore();
+}
+
 // ===== MOCKUP =====
 let designImg = null;
 let mockups = [];
@@ -185,39 +335,31 @@ let isDrawing = false;
 let startX, startY, currentZone = null;
 let editorScale = 1;
 
-// โหลด mockups จาก localStorage ตอนเริ่มต้น
 function loadSavedMockups() {
   try {
     const saved = localStorage.getItem('pinsflow_mockups');
     if (saved) {
       const data = JSON.parse(saved);
-      let loaded = 0;
       if (!data.length) { renderMockupGrid(); return; }
+      let loaded = 0;
       data.forEach(m => {
         const img = new Image();
         img.onload = () => {
           mockups.push({ id: m.id, name: m.name, img, imgSrc: m.imgSrc, zone: m.zone });
-          loaded++;
-          if (loaded === data.length) renderMockupGrid();
+          if (++loaded === data.length) renderMockupGrid();
         };
         img.src = m.imgSrc;
       });
-    } else {
-      renderMockupGrid();
-    }
-  } catch(e) {
-    renderMockupGrid();
-  }
+    } else renderMockupGrid();
+  } catch(e) { renderMockupGrid(); }
 }
 
-// บันทึก mockups ลง localStorage
 function saveMockups() {
   try {
-    const data = mockups.map(m => ({ id: m.id, name: m.name, imgSrc: m.imgSrc, zone: m.zone }));
-    localStorage.setItem('pinsflow_mockups', JSON.stringify(data));
-  } catch(e) {
-    alert('⚠️ พื้นที่เก็บข้อมูลเต็ม ลองลบ mockup บางอันออกก่อนนะ');
-  }
+    localStorage.setItem('pinsflow_mockups', JSON.stringify(
+      mockups.map(m => ({ id: m.id, name: m.name, imgSrc: m.imgSrc, zone: m.zone }))
+    ));
+  } catch(e) { alert('⚠️ พื้นที่เต็ม ลองลบ mockup บางอันออกก่อน'); }
 }
 
 function loadDesign(e) {
@@ -229,6 +371,8 @@ function loadDesign(e) {
       designImg = img;
       document.getElementById('design-preview').src = ev.target.result;
       document.getElementById('design-preview').style.display = 'block';
+      document.getElementById('design-box').className = 'upload-box has-file';
+      document.getElementById('design-box').textContent = '✅ โหลดดีไซน์แล้ว กดเพื่อเปลี่ยน';
       checkGenerateReady();
     };
     img.src = ev.target.result;
@@ -237,21 +381,14 @@ function loadDesign(e) {
 }
 
 function addMockups(e) {
-  const files = Array.from(e.target.files);
-  let processed = 0;
+  const files = Array.from(e.target.files); let processed = 0;
   files.forEach(file => {
     const reader = new FileReader();
     reader.onload = ev => {
       const img = new Image();
       img.onload = () => {
-        const id = Date.now() + Math.random();
-        mockups.push({ id, name: file.name.replace(/\.[^/.]+$/, ''), img, imgSrc: ev.target.result, zone: null });
-        processed++;
-        if (processed === files.length) {
-          saveMockups();
-          renderMockupGrid();
-          checkGenerateReady();
-        }
+        mockups.push({ id: Date.now()+Math.random(), name: file.name.replace(/\.[^/.]+$/,''), img, imgSrc: ev.target.result, zone: null });
+        if (++processed === files.length) { saveMockups(); renderMockupGrid(); checkGenerateReady(); }
       };
       img.src = ev.target.result;
     };
@@ -261,17 +398,12 @@ function addMockups(e) {
 }
 
 function renderMockupGrid() {
-  const grid = document.getElementById('mockup-grid');
-  grid.innerHTML = '';
+  const grid = document.getElementById('mockup-grid'); grid.innerHTML = '';
   mockups.forEach(m => {
-    const div = document.createElement('div');
-    div.className = 'mockup-thumb';
-    div.innerHTML = `
-      <img src="${m.imgSrc}">
-      <div class="thumb-label">
-        <span>👕 ${m.name}</span>
-        <span class="${m.zone ? 'edit-badge' : 'no-zone'}">${m.zone ? '✅ พร้อม' : '⚠️ ยังไม่กำหนด'}</span>
-      </div>
+    const div = document.createElement('div'); div.className = 'mockup-thumb';
+    div.innerHTML = `<img src="${m.imgSrc}">
+      <div class="thumb-label"><span>👕 ${m.name}</span>
+        <span class="${m.zone?'edit-badge':'no-zone'}">${m.zone?'✅ พร้อม':'⚠️ ยังไม่กำหนด'}</span></div>
       <div style="display:flex;gap:6px;padding:6px 10px 10px">
         <button class="btn btn-sm" style="flex:1" onclick="openEditor('${m.id}')">📐 กำหนดตำแหน่ง</button>
         <button class="btn-danger" onclick="removeMockup('${m.id}')">🗑️</button>
@@ -287,29 +419,26 @@ function renderMockupGrid() {
 }
 
 function removeMockup(id) {
-  if (!confirm('ลบ mockup นี้ออกไหม?')) return;
+  if (!confirm('ลบ mockup นี้ไหม?')) return;
   mockups = mockups.filter(m => String(m.id) !== String(id));
-  saveMockups();
-  renderMockupGrid();
+  saveMockups(); renderMockupGrid();
 }
 
 function checkGenerateReady() {
-  const hasDesign = !!designImg;
-  const hasZone = mockups.some(m => m.zone);
-  document.getElementById('generate-card').style.display = (hasDesign && hasZone) ? 'block' : 'none';
+  document.getElementById('generate-card').style.display =
+    (designImg && mockups.some(m => m.zone)) ? 'block' : 'none';
 }
 
 function openEditor(id) {
   editingId = id;
   const m = mockups.find(m => String(m.id) === String(id));
   const canvas = document.getElementById('editor-canvas');
-  const ctx = canvas.getContext('2d');
   const maxW = Math.min(560, window.innerWidth - 80);
   editorScale = maxW / m.img.width;
   canvas.width = m.img.width * editorScale;
   canvas.height = m.img.height * editorScale;
   currentZone = m.zone ? {...m.zone} : null;
-  drawEditor(ctx, m.img, canvas);
+  drawEditor(canvas.getContext('2d'), m.img, canvas);
   document.getElementById('editor-modal').style.display = 'block';
 }
 
@@ -327,62 +456,52 @@ function drawEditor(ctx, img, canvas) {
 }
 
 const edCanvas = document.getElementById('editor-canvas');
-
 function getPos(canvas, e) {
   const rect = canvas.getBoundingClientRect();
   const sx = canvas.width/rect.width, sy = canvas.height/rect.height;
-  const cx = e.touches ? e.touches[0].clientX : e.clientX;
-  const cy = e.touches ? e.touches[0].clientY : e.clientY;
-  return { x: (cx-rect.left)*sx/editorScale, y: (cy-rect.top)*sy/editorScale };
+  const cx = e.touches?e.touches[0].clientX:e.clientX, cy = e.touches?e.touches[0].clientY:e.clientY;
+  return { x:(cx-rect.left)*sx/editorScale, y:(cy-rect.top)*sy/editorScale };
 }
-
 edCanvas.addEventListener('mousedown', e => { const p=getPos(edCanvas,e); startX=p.x; startY=p.y; isDrawing=true; });
 edCanvas.addEventListener('touchstart', e => { e.preventDefault(); const p=getPos(edCanvas,e); startX=p.x; startY=p.y; isDrawing=true; }, {passive:false});
-
 ['mousemove','touchmove'].forEach(ev => {
   edCanvas.addEventListener(ev, e => {
-    if (!isDrawing) return;
-    if (e.preventDefault) e.preventDefault();
-    const m = mockups.find(m => String(m.id)===String(editingId));
-    const p = getPos(edCanvas, e);
-    currentZone = { x:Math.min(startX,p.x), y:Math.min(startY,p.y), w:Math.abs(p.x-startX), h:Math.abs(p.y-startY) };
-    drawEditor(edCanvas.getContext('2d'), m.img, edCanvas);
+    if (!isDrawing) return; if(e.preventDefault)e.preventDefault();
+    const m=mockups.find(m=>String(m.id)===String(editingId));
+    const p=getPos(edCanvas,e);
+    currentZone={x:Math.min(startX,p.x),y:Math.min(startY,p.y),w:Math.abs(p.x-startX),h:Math.abs(p.y-startY)};
+    drawEditor(edCanvas.getContext('2d'),m.img,edCanvas);
   }, {passive:false});
 });
-
-['mouseup','touchend'].forEach(ev => edCanvas.addEventListener(ev, () => isDrawing=false));
+['mouseup','touchend'].forEach(ev => edCanvas.addEventListener(ev, ()=>isDrawing=false));
 
 function saveZone() {
-  if (!currentZone || currentZone.w < 10 || currentZone.h < 10) { alert('กรุณาลากเพื่อกำหนดพื้นที่ก่อนนะ 💜'); return; }
-  const m = mockups.find(m => String(m.id)===String(editingId));
-  m.zone = {...currentZone};
-  saveMockups();
-  renderMockupGrid();
-  closeEditor();
+  if (!currentZone||currentZone.w<10||currentZone.h<10){alert('กรุณาลากกำหนดพื้นที่ก่อนนะ 💜');return;}
+  const m=mockups.find(m=>String(m.id)===String(editingId));
+  m.zone={...currentZone}; saveMockups(); renderMockupGrid(); closeEditor();
 }
-
-function closeEditor() { document.getElementById('editor-modal').style.display = 'none'; }
+function closeEditor(){document.getElementById('editor-modal').style.display='none';}
 
 function generateMockups() {
-  if (!designImg) { alert('กรุณาอัปโหลดดีไซน์ก่อนนะ'); return; }
-  const ready = mockups.filter(m => m.zone);
-  if (!ready.length) { alert('กรุณากำหนดตำแหน่งให้ mockup อย่างน้อย 1 อัน'); return; }
-  const results = document.getElementById('mockup-results');
-  results.innerHTML = '';
-  const wrap = document.createElement('div'); wrap.className = 'card';
-  wrap.innerHTML = `<label>🎉 ผลลัพธ์ ${ready.length} Mockup</label>`;
-  const grid = document.createElement('div'); grid.className = 'result-grid';
+  if (!designImg){alert('กรุณาอัปโหลดดีไซน์ก่อนนะ');return;}
+  const ready=mockups.filter(m=>m.zone);
+  if (!ready.length){alert('กรุณากำหนดตำแหน่งให้ mockup อย่างน้อย 1 อัน');return;}
+  const results=document.getElementById('mockup-results'); results.innerHTML='';
+  const wrap=document.createElement('div'); wrap.className='card';
+  wrap.innerHTML=`<label>🎉 ผลลัพธ์ ${ready.length} Mockup</label>`;
+  const grid=document.createElement('div'); grid.className='result-grid';
   ready.forEach(m => {
-    const canvas = document.createElement('canvas');
-    canvas.width = m.img.width; canvas.height = m.img.height;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(m.img, 0, 0);
-    ctx.drawImage(designImg, m.zone.x, m.zone.y, m.zone.w, m.zone.h);
-    const item = document.createElement('div'); item.className = 'result-item';
-    const img = document.createElement('img'); img.src = canvas.toDataURL('image/png');
-    const lbl = document.createElement('div'); lbl.className = 'result-label'; lbl.textContent = '👕 ' + m.name;
-    const dl = document.createElement('a'); dl.className = 'dl-btn'; dl.textContent = '⬇️ ดาวน์โหลด';
-    dl.href = canvas.toDataURL('image/png'); dl.download = `mockup-${m.name}.png`;
+    const canvas=document.createElement('canvas');
+    canvas.width=m.img.width; canvas.height=m.img.height;
+    const ctx=canvas.getContext('2d');
+    ctx.drawImage(m.img,0,0);
+    ctx.drawImage(designImg,m.zone.x,m.zone.y,m.zone.w,m.zone.h);
+    drawWatermark(ctx, canvas.width, canvas.height, 'mockup');
+    const item=document.createElement('div'); item.className='result-item';
+    const img=document.createElement('img'); img.src=canvas.toDataURL('image/png');
+    const lbl=document.createElement('div'); lbl.className='result-label'; lbl.textContent='👕 '+m.name;
+    const dl=document.createElement('a'); dl.className='dl-btn'; dl.textContent='⬇️ ดาวน์โหลด';
+    dl.href=canvas.toDataURL('image/png'); dl.download=`mockup-${m.name}.png`;
     item.appendChild(img); item.appendChild(lbl); item.appendChild(dl); grid.appendChild(item);
   });
   wrap.appendChild(grid); results.appendChild(wrap);
@@ -391,52 +510,54 @@ function generateMockups() {
 // ===== GENERATE PINS =====
 let loadedImage = null;
 const STYLES = [
-  { name: "Lavender Dream", bg: "#f5f0ff", text: "#4c1d95", accent: "#a855f7" },
-  { name: "Purple Night", bg: "#2e1065", text: "#f3e8ff", accent: "#c084fc" },
-  { name: "Soft Rose", bg: "#fff0f9", text: "#831843", accent: "#d946ef" },
-  { name: "Mint Fresh", bg: "#f0fdf4", text: "#14532d", accent: "#22c55e" },
-  { name: "Cream Gold", bg: "#fefce8", text: "#713f12", accent: "#eab308" },
-  { name: "Sky Blue", bg: "#f0f9ff", text: "#0c4a6e", accent: "#38bdf8" },
+  {name:"Lavender Dream",bg:"#f5f0ff",text:"#4c1d95",accent:"#a855f7"},
+  {name:"Purple Night",bg:"#2e1065",text:"#f3e8ff",accent:"#c084fc"},
+  {name:"Soft Rose",bg:"#fff0f9",text:"#831843",accent:"#d946ef"},
+  {name:"Mint Fresh",bg:"#f0fdf4",text:"#14532d",accent:"#22c55e"},
+  {name:"Cream Gold",bg:"#fefce8",text:"#713f12",accent:"#eab308"},
+  {name:"Sky Blue",bg:"#f0f9ff",text:"#0c4a6e",accent:"#38bdf8"},
 ];
 
 function previewImage(e) {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    document.getElementById('preview').src = ev.target.result;
-    document.getElementById('preview').style.display = 'block';
-    const image = new Image(); image.onload = () => { loadedImage = image; }; image.src = ev.target.result;
+  const file=e.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    document.getElementById('preview').src=ev.target.result;
+    document.getElementById('preview').style.display='block';
+    const image=new Image(); image.onload=()=>{loadedImage=image;}; image.src=ev.target.result;
   };
   reader.readAsDataURL(file);
 }
 
 function generatePins() {
-  const title = document.getElementById('title-input').value.trim();
-  const url = document.getElementById('url-input').value.trim();
-  const output = document.getElementById('output');
-  if (!loadedImage) { alert('กรุณาอัปโหลดรูปสินค้าก่อนนะ 🌸'); return; }
-  if (!title) { alert('กรุณาใส่ชื่อสินค้า'); return; }
-  if (!url) { alert('กรุณาใส่ลิงก์ Etsy'); return; }
-  output.innerHTML = '';
-  const dlAll = document.createElement('button');
-  dlAll.className = 'btn'; dlAll.style.cssText = 'max-width:600px;margin:0 auto 12px;display:block';
-  dlAll.textContent = '⬇️ ดาวน์โหลดทั้งหมด'; dlAll.onclick = downloadAll;
+  const title=document.getElementById('title-input').value.trim();
+  const url=document.getElementById('url-input').value.trim();
+  const output=document.getElementById('output');
+  if(!loadedImage){alert('กรุณาอัปโหลดรูปสินค้าก่อนนะ 🌸');return;}
+  if(!title){alert('กรุณาใส่ชื่อสินค้า');return;}
+  if(!url){alert('กรุณาใส่ลิงก์ Etsy');return;}
+  output.innerHTML='';
+  const dlAll=document.createElement('button');
+  dlAll.className='btn'; dlAll.style.cssText='max-width:600px;margin:0 auto 12px;display:block';
+  dlAll.textContent='⬇️ ดาวน์โหลดทั้งหมด'; dlAll.onclick=downloadAll;
   output.appendChild(dlAll);
-  const grid = document.createElement('div'); grid.className = 'pins-grid';
-  STYLES.forEach((style, i) => {
-    const canvas = document.createElement('canvas');
-    canvas.width = 600; canvas.height = 900; canvas.id = 'canvas-' + i;
-    drawPin(canvas.getContext('2d'), loadedImage, title, url, style);
-    const wrap = document.createElement('div'); wrap.className = 'pin-wrap';
-    const lbl = document.createElement('div'); lbl.className = 'pin-label'; lbl.textContent = '🎨 ' + style.name;
-    const dl = document.createElement('a'); dl.className = 'dl-btn'; dl.textContent = '⬇️ ดาวน์โหลด PNG';
-    dl.href = canvas.toDataURL('image/png'); dl.download = `pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
+  const grid=document.createElement('div'); grid.className='pins-grid';
+  STYLES.forEach((style,i)=>{
+    const canvas=document.createElement('canvas');
+    canvas.width=600; canvas.height=900; canvas.id='canvas-'+i;
+    const ctx=canvas.getContext('2d');
+    drawPin(ctx,loadedImage,title,url,style);
+    drawWatermark(ctx,600,900,'pins');
+    const wrap=document.createElement('div'); wrap.className='pin-wrap';
+    const lbl=document.createElement('div'); lbl.className='pin-label'; lbl.textContent='🎨 '+style.name;
+    const dl=document.createElement('a'); dl.className='dl-btn'; dl.textContent='⬇️ ดาวน์โหลด PNG';
+    dl.href=canvas.toDataURL('image/png'); dl.download=`pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
     wrap.appendChild(lbl); wrap.appendChild(canvas); wrap.appendChild(dl); grid.appendChild(wrap);
   });
   output.appendChild(grid);
 }
 
-function drawPin(ctx, img, title, url, style) {
+function drawPin(ctx,img,title,url,style) {
   const W=600,H=900;
   ctx.fillStyle=style.bg; ctx.fillRect(0,0,W,H);
   const imgH=520,scale=Math.max(W/img.width,imgH/img.height);
@@ -558,7 +679,6 @@ function renderBestTimes(hours) {
   });
 }
 
-// เริ่มต้น โหลด mockups ที่บันทึกไว้
 loadSavedMockups();
 </script>
 </body>
