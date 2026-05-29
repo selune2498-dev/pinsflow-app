@@ -7,9 +7,9 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: sans-serif; background: #f5f0ff; }
-.nav { background: #d8b4fe; padding: 14px 20px; display: flex; gap: 10px; align-items: center; }
+.nav { background: #d8b4fe; padding: 14px 20px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .nav-title { color: #6b21a8; font-weight: bold; font-size: 16px; margin-right: auto; }
-.nav button { background: white; color: #9333ea; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; opacity: 0.7; }
+.nav button { background: white; color: #9333ea; border: none; padding: 8px 14px; border-radius: 20px; cursor: pointer; font-size: 13px; opacity: 0.7; }
 .nav button.active, .nav button:hover { opacity: 1; box-shadow: 0 2px 8px rgba(147,51,234,0.2); }
 .page { display: none; padding: 20px; max-width: 900px; margin: 0 auto; }
 .page.active { display: block; }
@@ -18,25 +18,22 @@ h1 { color: #7e22ce; text-align: center; margin-bottom: 6px; font-size: 26px; }
 .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(167,139,250,0.15); border: 1.5px solid #ede9fe; }
 label { display: block; font-weight: bold; margin-bottom: 6px; color: #7e22ce; margin-top: 12px; font-size: 14px; }
 input[type=text] { width: 100%; padding: 10px 14px; border: 1.5px solid #e9d5ff; border-radius: 10px; font-size: 14px; outline: none; background: #faf5ff; }
-input[type=range] { width: 100%; accent-color: #a855f7; }
+input[type=range] { width: 100%; accent-color: #a855f7; margin-top: 6px; }
 input:focus { border-color: #c084fc; }
-.upload-box { border: 2px dashed #e9d5ff; border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; color: #c084fc; background: #faf5ff; }
+.upload-box { border: 2px dashed #e9d5ff; border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; color: #c084fc; background: #faf5ff; font-size: 14px; }
 .upload-box:hover { border-color: #c084fc; color: #9333ea; }
-.upload-box.has-file { border-color: #a855f7; background: #faf5ff; color: #7e22ce; }
+.upload-box.has-file { border-color: #a855f7; color: #7e22ce; }
 .btn { background: #c084fc; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-size: 15px; cursor: pointer; width: 100%; margin-top: 12px; font-weight: bold; }
 .btn:hover { background: #a855f7; }
 .btn-sm { padding: 7px 14px; font-size: 13px; width: auto; margin-top: 0; border-radius: 8px; }
 .btn-outline { background: white; color: #9333ea; border: 2px solid #c084fc; }
 .btn-outline:hover { background: #faf5ff; }
 .btn-danger { background: #fce7f3; color: #be185d; border: none; padding: 5px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+.btn-green { background: #10b981; color: white; }
+.btn-green:hover { background: #059669; }
 .saved-badge { background: #d1fae5; color: #065f46; font-size: 11px; padding: 2px 8px; border-radius: 8px; margin-left: 8px; }
 .wm-preview { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 10px; background: #faf5ff; border-radius: 10px; border: 1px solid #e9d5ff; }
 .wm-preview img { max-height: 50px; max-width: 80px; border-radius: 6px; }
-.wm-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-.wm-setting-item label { font-size: 12px; margin-top: 0; margin-bottom: 4px; }
-.position-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; margin-top: 4px; }
-.pos-btn { padding: 6px; border-radius: 6px; border: 1.5px solid #e9d5ff; background: #faf5ff; cursor: pointer; font-size: 11px; color: #7e22ce; text-align: center; }
-.pos-btn.active { background: #c084fc; color: white; border-color: #a855f7; }
 .mockup-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
 .mockup-thumb { border-radius: 12px; overflow: hidden; border: 2px solid #ede9fe; background: #faf5ff; }
 .mockup-thumb:hover { border-color: #c084fc; }
@@ -48,9 +45,6 @@ input:focus { border-color: #c084fc; }
 .result-item { border-radius: 14px; overflow: hidden; border: 1.5px solid #ede9fe; background: white; }
 .result-item img { width: 100%; display: block; }
 .result-label { padding: 7px 12px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; }
-.pins-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.pin-wrap { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(167,139,250,0.15); border: 1.5px solid #ede9fe; }
-.pin-label { padding: 8px 12px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; }
 .dl-btn { display: block; margin: 6px 10px 10px; background: #c084fc; color: white; border: none; padding: 8px; border-radius: 8px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; font-weight: bold; }
 .dl-btn:hover { background: #a855f7; }
 .planet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -66,6 +60,25 @@ input:focus { border-color: #c084fc; }
 .location-row { display: flex; gap: 8px; align-items: flex-end; }
 .location-row input { flex: 1; }
 .best-box { border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+
+/* Pinterest Page */
+.status-box { border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 16px; }
+.status-pending { background: #fef9c3; border: 1.5px solid #fde047; }
+.status-ready { background: #d1fae5; border: 1.5px solid #6ee7b7; }
+.status-icon { font-size: 48px; margin-bottom: 8px; }
+.status-title { font-size: 18px; font-weight: bold; color: #7e22ce; margin-bottom: 4px; }
+.status-desc { font-size: 13px; color: #6b7280; }
+.schedule-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #f5f0ff; flex-wrap: wrap; gap: 8px; }
+.schedule-item:last-child { border-bottom: none; }
+.schedule-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+.schedule-info { flex: 1; min-width: 120px; }
+.schedule-info .s-title { font-size: 13px; font-weight: bold; color: #4c1d95; }
+.schedule-info .s-time { font-size: 12px; color: #a78bfa; }
+.tag { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: bold; }
+.tag-pending { background: #fef9c3; color: #854d0e; }
+.tag-scheduled { background: #dbeafe; color: #1e40af; }
+.tag-posted { background: #d1fae5; color: #065f46; }
+.board-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f0ff; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -73,7 +86,7 @@ input:focus { border-color: #c084fc; }
 <div class="nav">
   <span class="nav-title">🔮 PinsFlow</span>
   <button class="active" onclick="showPage('mockup', this)">👕 Mockup</button>
-  <button onclick="showPage('pins', this)">🎨 Generate Pins</button>
+  <button onclick="showPage('pinterest', this)">📌 Pinterest</button>
   <button onclick="showPage('planets', this)">🌟 Planetary Hours</button>
 </div>
 
@@ -81,7 +94,7 @@ input:focus { border-color: #c084fc; }
 <div id="page-mockup" class="page active">
   <br>
   <h1>👕 Mockup Generator</h1>
-  <p class="subtitle">วางดีไซน์ลงบน Mockup อัตโนมัติ</p>
+  <p class="subtitle">วางดีไซน์ลงบน Mockup + ลายน้ำอัตโนมัติ</p>
 
   <div class="card">
     <label>🎨 Step 1 — อัปโหลดไฟล์ดีไซน์ PNG</label>
@@ -92,53 +105,32 @@ input:focus { border-color: #c084fc; }
     <img id="design-preview" style="max-height:120px;margin-top:10px;border-radius:8px;display:none">
   </div>
 
-  <!-- Watermark Section -->
   <div class="card">
-    <label>💧 ลายน้ำ (Watermark) — ไม่บังคับ</label>
-    <div class="upload-box" id="wm-box-mockup" onclick="document.getElementById('wm-input-mockup').click()">
-      🔏 กดเพื่ออัปโหลดไฟล์ลายน้ำ (PNG แบบมีพื้นหลังโปร่งใสจะดีที่สุด)
+    <label>💧 ลายน้ำ — ไม่บังคับ</label>
+    <div class="upload-box" id="wm-box" onclick="document.getElementById('wm-input').click()">
+      🔏 กดเพื่ออัปโหลดลายน้ำ (PNG โปร่งใสจะดีที่สุด)
     </div>
-    <input type="file" id="wm-input-mockup" accept="image/*" style="display:none" onchange="loadWatermark(event, 'mockup')">
-    <div id="wm-preview-mockup" style="display:none">
+    <input type="file" id="wm-input" accept="image/*" style="display:none" onchange="loadWatermark(event)">
+    <div id="wm-preview" style="display:none">
       <div class="wm-preview">
-        <img id="wm-img-mockup">
+        <img id="wm-img" style="max-height:50px;max-width:80px;border-radius:6px">
         <div>
           <div style="font-size:13px;color:#7e22ce;font-weight:bold">✅ โหลดลายน้ำแล้ว</div>
-          <button class="btn-danger" style="margin-top:4px" onclick="removeWatermark('mockup')">🗑️ ลบออก</button>
+          <button class="btn-danger" style="margin-top:4px" onclick="removeWatermark()">🗑️ ลบออก</button>
         </div>
       </div>
-      <div class="wm-settings">
-        <div class="wm-setting-item">
-          <label>ความโปร่งใส</label>
-          <input type="range" id="wm-opacity-mockup" min="5" max="100" value="30" oninput="document.getElementById('wm-opacity-val-mockup').textContent=this.value+'%'">
-          <span id="wm-opacity-val-mockup" style="font-size:12px;color:#a78bfa">30%</span>
-        </div>
-        <div class="wm-setting-item">
-          <label>ขนาด</label>
-          <input type="range" id="wm-size-mockup" min="5" max="60" value="20" oninput="document.getElementById('wm-size-val-mockup').textContent=this.value+'%'">
-          <span id="wm-size-val-mockup" style="font-size:12px;color:#a78bfa">20%</span>
-        </div>
-      </div>
-      <div style="margin-top:8px">
-        <label style="margin-top:0">ตำแหน่ง</label>
-        <div class="position-grid" id="wm-pos-mockup">
-          <div class="pos-btn" onclick="setPos('mockup','top-left')">↖ บนซ้าย</div>
-          <div class="pos-btn" onclick="setPos('mockup','top-center')">↑ บนกลาง</div>
-          <div class="pos-btn" onclick="setPos('mockup','top-right')">↗ บนขวา</div>
-          <div class="pos-btn" onclick="setPos('mockup','center-left')">← กลางซ้าย</div>
-          <div class="pos-btn active" onclick="setPos('mockup','center')">⊙ กลาง</div>
-          <div class="pos-btn" onclick="setPos('mockup','center-right')">→ กลางขวา</div>
-          <div class="pos-btn" onclick="setPos('mockup','bottom-left')">↙ ล่างซ้าย</div>
-          <div class="pos-btn" onclick="setPos('mockup','bottom-center')">↓ ล่างกลาง</div>
-          <div class="pos-btn active" onclick="setPos('mockup','bottom-right')">↘ ล่างขวา</div>
-        </div>
-      </div>
+      <label style="margin-top:10px">ความโปร่งใสลายน้ำ</label>
+      <input type="range" id="wm-opacity" min="5" max="100" value="30"
+        oninput="document.getElementById('wm-opacity-val').textContent=this.value+'%'">
+      <span id="wm-opacity-val" style="font-size:12px;color:#a78bfa">30%</span>
     </div>
   </div>
 
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-      <label style="margin:0">👕 Step 2 — Mockup Templates <span class="saved-badge">💾 บันทึกอัตโนมัติ</span></label>
+      <label style="margin:0">👕 Step 2 — Mockup Templates
+        <span class="saved-badge">💾 บันทึกอัตโนมัติ</span>
+      </label>
       <button class="btn btn-sm btn-outline" onclick="document.getElementById('mockup-input').click()">+ เพิ่ม Mockup</button>
     </div>
     <input type="file" id="mockup-input" accept="image/*" multiple style="display:none" onchange="addMockups(event)">
@@ -148,11 +140,13 @@ input:focus { border-color: #c084fc; }
 
   <div class="card" id="generate-card" style="display:none">
     <label>✨ Step 3 — Generate!</label>
+    <p style="font-size:13px;color:#a78bfa;margin-bottom:12px">ลายน้ำจะปูเต็มรูปอัตโนมัติ</p>
     <button class="btn" onclick="generateMockups()">✨ Generate Mockups ทั้งหมด</button>
   </div>
 
   <div id="mockup-results"></div>
 
+  <!-- Editor Modal -->
   <div id="editor-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999;overflow-y:auto;padding:20px">
     <div style="background:white;border-radius:20px;padding:20px;max-width:600px;margin:0 auto">
       <h2 style="color:#7e22ce;margin-bottom:8px">📐 กำหนดตำแหน่งดีไซน์</h2>
@@ -169,71 +163,67 @@ input:focus { border-color: #c084fc; }
   </div>
 </div>
 
-<!-- PAGE: Generate Pins -->
-<div id="page-pins" class="page">
+<!-- PAGE: PINTEREST -->
+<div id="page-pinterest" class="page">
   <br>
-  <h1>🎨 Generate Pins</h1>
-  <p class="subtitle">สร้าง Pinterest Pins สำหรับ VGreyDigitalStudio</p>
-  <div class="card">
-    <label>📷 อัปโหลดรูปสินค้า</label>
-    <div class="upload-box" onclick="document.getElementById('img-input').click()">🖼️ กดเพื่อเลือกรูปสินค้า</div>
-    <input type="file" id="img-input" accept="image/*" style="display:none" onchange="previewImage(event)">
-    <img id="preview" style="max-width:100%;max-height:180px;border-radius:10px;margin-top:10px;display:none">
-    <label>✏️ ชื่อสินค้า</label>
-    <input type="text" id="title-input" placeholder="เช่น Statue of Liberty Sketch Print" />
-    <label>🔗 ลิงก์ Etsy</label>
-    <input type="text" id="url-input" placeholder="https://www.etsy.com/listing/..." />
+  <h1>📌 Pinterest</h1>
+  <p class="subtitle">เชื่อมต่อและตั้งเวลาโพสอัตโนมัติ</p>
+
+  <!-- Status -->
+  <div id="pinterest-status" class="status-box status-pending">
+    <div class="status-icon">⏳</div>
+    <div class="status-title">รอ Pinterest อนุมัติ API</div>
+    <div class="status-desc">สมัครแล้ว กำลังรอ review อยู่ ปกติใช้เวลา 1-7 วัน<br>พอได้รับอีเมลอนุมัติแล้ว กรอก App Secret ด้านล่างได้เลย</div>
   </div>
 
-  <!-- Watermark Pins -->
+  <!-- Connect -->
   <div class="card">
-    <label>💧 ลายน้ำ (Watermark) — ไม่บังคับ</label>
-    <div class="upload-box" id="wm-box-pins" onclick="document.getElementById('wm-input-pins').click()">
-      🔏 กดเพื่ออัปโหลดไฟล์ลายน้ำ
-    </div>
-    <input type="file" id="wm-input-pins" accept="image/*" style="display:none" onchange="loadWatermark(event, 'pins')">
-    <div id="wm-preview-pins" style="display:none">
-      <div class="wm-preview">
-        <img id="wm-img-pins">
-        <div>
-          <div style="font-size:13px;color:#7e22ce;font-weight:bold">✅ โหลดลายน้ำแล้ว</div>
-          <button class="btn-danger" style="margin-top:4px" onclick="removeWatermark('pins')">🗑️ ลบออก</button>
-        </div>
-      </div>
-      <div class="wm-settings">
-        <div class="wm-setting-item">
-          <label>ความโปร่งใส</label>
-          <input type="range" id="wm-opacity-pins" min="5" max="100" value="30" oninput="document.getElementById('wm-opacity-val-pins').textContent=this.value+'%'">
-          <span id="wm-opacity-val-pins" style="font-size:12px;color:#a78bfa">30%</span>
-        </div>
-        <div class="wm-setting-item">
-          <label>ขนาด</label>
-          <input type="range" id="wm-size-pins" min="5" max="60" value="25" oninput="document.getElementById('wm-size-val-pins').textContent=this.value+'%'">
-          <span id="wm-size-val-pins" style="font-size:12px;color:#a78bfa">25%</span>
-        </div>
-      </div>
-      <div style="margin-top:8px">
-        <label style="margin-top:0">ตำแหน่ง</label>
-        <div class="position-grid" id="wm-pos-pins">
-          <div class="pos-btn" onclick="setPos('pins','top-left')">↖ บนซ้าย</div>
-          <div class="pos-btn" onclick="setPos('pins','top-center')">↑ บนกลาง</div>
-          <div class="pos-btn" onclick="setPos('pins','top-right')">↗ บนขวา</div>
-          <div class="pos-btn" onclick="setPos('pins','center-left')">← กลางซ้าย</div>
-          <div class="pos-btn" onclick="setPos('pins','center')">⊙ กลาง</div>
-          <div class="pos-btn" onclick="setPos('pins','center-right')">→ กลางขวา</div>
-          <div class="pos-btn" onclick="setPos('pins','bottom-left')">↙ ล่างซ้าย</div>
-          <div class="pos-btn" onclick="setPos('pins','bottom-center')">↓ ล่างกลาง</div>
-          <div class="pos-btn active" onclick="setPos('pins','bottom-right')">↘ ล่างขวา</div>
-        </div>
+    <label>🔑 App ID & App Secret (กรอกหลังได้รับอนุมัติ)</label>
+    <input type="text" id="pinterest-app-id" placeholder="App ID: 1575254 (มีแล้ว)" value="1575254" readonly
+      style="background:#f5f0ff;margin-bottom:8px">
+    <input type="text" id="pinterest-secret" placeholder="App Secret: วางที่นี่หลังได้รับอนุมัติ">
+    <button class="btn btn-green" onclick="connectPinterest()" style="margin-top:10px">
+      🔗 เชื่อมต่อ Pinterest
+    </button>
+    <p style="font-size:12px;color:#a78bfa;margin-top:8px;text-align:center">
+      หา App Secret ได้ที่ developers.pinterest.com → My Apps → VGreyDigitalStudio Scheduler → Manage
+    </p>
+  </div>
+
+  <!-- Boards (แสดงหลัง connect) -->
+  <div class="card" id="boards-card" style="display:none">
+    <label>📋 Pinterest Boards ของคุณ</label>
+    <div id="boards-list"></div>
+  </div>
+
+  <!-- Schedule Queue -->
+  <div class="card">
+    <label>📅 คิวโพส</label>
+    <p style="font-size:13px;color:#a78bfa;margin-bottom:12px">
+      รูปที่ generate จาก Mockup จะมาอยู่ที่นี่ พอ Pinterest อนุมัติแล้วกดโพสได้เลย
+    </p>
+    <div id="schedule-queue">
+      <div style="text-align:center;padding:30px;color:#c084fc">
+        <div style="font-size:40px">📭</div>
+        <div style="font-size:14px;margin-top:8px">ยังไม่มีรูปในคิว<br>ไป Generate Mockup แล้วกด "เพิ่มในคิว" ได้เลย</div>
       </div>
     </div>
   </div>
 
-  <button class="btn" style="max-width:600px;margin:0 auto;display:block" onclick="generatePins()">✨ Generate Pins</button>
-  <div id="output" style="margin-top:16px"></div>
+  <!-- How to use -->
+  <div class="card" style="background:linear-gradient(135deg,#faf5ff,#f5f0ff)">
+    <label>📖 วิธีใช้งาน (หลัง API อนุมัติ)</label>
+    <div style="font-size:13px;color:#6b7280;line-height:2">
+      1️⃣ รับอีเมลอนุมัติจาก Pinterest<br>
+      2️⃣ ไปที่ developers.pinterest.com → Manage → copy App Secret<br>
+      3️⃣ วาง App Secret ในช่องด้านบน → กด เชื่อมต่อ<br>
+      4️⃣ Generate Mockup → กด "เพิ่มในคิว" → เลือก Board + เวลาโพส<br>
+      5️⃣ ดูเวลาดาวมงคลจาก Planetary Hours แล้วตั้งเวลาได้เลย ✨
+    </div>
+  </div>
 </div>
 
-<!-- PAGE: Planetary Hours -->
+<!-- PAGE: PLANETARY HOURS -->
 <div id="page-planets" class="page">
   <br>
   <h1>🌟 Planetary Hours</h1>
@@ -271,20 +261,19 @@ function showPage(name, btn) {
 }
 
 // ===== WATERMARK =====
-let watermarks = { mockup: null, pins: null };
-let wmPositions = { mockup: 'center', pins: 'bottom-right' };
+let wmImage = null;
 
-function loadWatermark(e, type) {
+function loadWatermark(e) {
   const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
     const img = new Image();
     img.onload = () => {
-      watermarks[type] = img;
-      document.getElementById(`wm-img-${type}`).src = ev.target.result;
-      document.getElementById(`wm-preview-${type}`).style.display = 'block';
-      document.getElementById(`wm-box-${type}`).className = 'upload-box has-file';
-      document.getElementById(`wm-box-${type}`).textContent = '✅ โหลดลายน้ำแล้ว กดเพื่อเปลี่ยน';
+      wmImage = img;
+      document.getElementById('wm-img').src = ev.target.result;
+      document.getElementById('wm-preview').style.display = 'block';
+      document.getElementById('wm-box').className = 'upload-box has-file';
+      document.getElementById('wm-box').textContent = '✅ โหลดลายน้ำแล้ว กดเพื่อเปลี่ยน';
     };
     img.src = ev.target.result;
   };
@@ -292,38 +281,19 @@ function loadWatermark(e, type) {
   e.target.value = '';
 }
 
-function removeWatermark(type) {
-  watermarks[type] = null;
-  document.getElementById(`wm-preview-${type}`).style.display = 'none';
-  document.getElementById(`wm-box-${type}`).className = 'upload-box';
-  document.getElementById(`wm-box-${type}`).textContent = '🔏 กดเพื่ออัปโหลดไฟล์ลายน้ำ';
+function removeWatermark() {
+  wmImage = null;
+  document.getElementById('wm-preview').style.display = 'none';
+  document.getElementById('wm-box').className = 'upload-box';
+  document.getElementById('wm-box').textContent = '🔏 กดเพื่ออัปโหลดลายน้ำ (PNG โปร่งใสจะดีที่สุด)';
 }
 
-function setPos(type, pos) {
-  wmPositions[type] = pos;
-  document.querySelectorAll(`#wm-pos-${type} .pos-btn`).forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-}
-
-function drawWatermark(ctx, canvasW, canvasH, type) {
-  const wm = watermarks[type];
-  if (!wm) return;
-  const opacity = parseInt(document.getElementById(`wm-opacity-${type}`).value) / 100;
-  const sizePct = parseInt(document.getElementById(`wm-size-${type}`).value) / 100;
-  const pos = wmPositions[type];
-  const wmW = canvasW * sizePct;
-  const wmH = (wm.height / wm.width) * wmW;
-  const pad = 20;
-  let x = 0, y = 0;
-  if (pos.includes('left')) x = pad;
-  else if (pos.includes('right')) x = canvasW - wmW - pad;
-  else x = (canvasW - wmW) / 2;
-  if (pos.includes('top')) y = pad;
-  else if (pos.includes('bottom')) y = canvasH - wmH - pad;
-  else y = (canvasH - wmH) / 2;
+function drawWatermark(ctx, W, H) {
+  if (!wmImage) return;
+  const opacity = parseInt(document.getElementById('wm-opacity').value) / 100;
   ctx.save();
   ctx.globalAlpha = opacity;
-  ctx.drawImage(wm, x, y, wmW, wmH);
+  ctx.drawImage(wmImage, 0, 0, W, H);
   ctx.restore();
 }
 
@@ -459,7 +429,8 @@ const edCanvas = document.getElementById('editor-canvas');
 function getPos(canvas, e) {
   const rect = canvas.getBoundingClientRect();
   const sx = canvas.width/rect.width, sy = canvas.height/rect.height;
-  const cx = e.touches?e.touches[0].clientX:e.clientX, cy = e.touches?e.touches[0].clientY:e.clientY;
+  const cx = e.touches?e.touches[0].clientX:e.clientX;
+  const cy = e.touches?e.touches[0].clientY:e.clientY;
   return { x:(cx-rect.left)*sx/editorScale, y:(cy-rect.top)*sy/editorScale };
 }
 edCanvas.addEventListener('mousedown', e => { const p=getPos(edCanvas,e); startX=p.x; startY=p.y; isDrawing=true; });
@@ -467,120 +438,96 @@ edCanvas.addEventListener('touchstart', e => { e.preventDefault(); const p=getPo
 ['mousemove','touchmove'].forEach(ev => {
   edCanvas.addEventListener(ev, e => {
     if (!isDrawing) return; if(e.preventDefault)e.preventDefault();
-    const m=mockups.find(m=>String(m.id)===String(editingId));
-    const p=getPos(edCanvas,e);
-    currentZone={x:Math.min(startX,p.x),y:Math.min(startY,p.y),w:Math.abs(p.x-startX),h:Math.abs(p.y-startY)};
-    drawEditor(edCanvas.getContext('2d'),m.img,edCanvas);
+    const m = mockups.find(m=>String(m.id)===String(editingId));
+    const p = getPos(edCanvas,e);
+    currentZone = {x:Math.min(startX,p.x),y:Math.min(startY,p.y),w:Math.abs(p.x-startX),h:Math.abs(p.y-startY)};
+    drawEditor(edCanvas.getContext('2d'), m.img, edCanvas);
   }, {passive:false});
 });
 ['mouseup','touchend'].forEach(ev => edCanvas.addEventListener(ev, ()=>isDrawing=false));
 
 function saveZone() {
   if (!currentZone||currentZone.w<10||currentZone.h<10){alert('กรุณาลากกำหนดพื้นที่ก่อนนะ 💜');return;}
-  const m=mockups.find(m=>String(m.id)===String(editingId));
-  m.zone={...currentZone}; saveMockups(); renderMockupGrid(); closeEditor();
+  const m = mockups.find(m=>String(m.id)===String(editingId));
+  m.zone = {...currentZone}; saveMockups(); renderMockupGrid(); closeEditor();
 }
-function closeEditor(){document.getElementById('editor-modal').style.display='none';}
+function closeEditor() { document.getElementById('editor-modal').style.display='none'; }
 
 function generateMockups() {
   if (!designImg){alert('กรุณาอัปโหลดดีไซน์ก่อนนะ');return;}
-  const ready=mockups.filter(m=>m.zone);
+  const ready = mockups.filter(m=>m.zone);
   if (!ready.length){alert('กรุณากำหนดตำแหน่งให้ mockup อย่างน้อย 1 อัน');return;}
-  const results=document.getElementById('mockup-results'); results.innerHTML='';
-  const wrap=document.createElement('div'); wrap.className='card';
+  const results = document.getElementById('mockup-results'); results.innerHTML='';
+  const wrap = document.createElement('div'); wrap.className='card';
   wrap.innerHTML=`<label>🎉 ผลลัพธ์ ${ready.length} Mockup</label>`;
-  const grid=document.createElement('div'); grid.className='result-grid';
+  const grid = document.createElement('div'); grid.className='result-grid';
   ready.forEach(m => {
-    const canvas=document.createElement('canvas');
+    const canvas = document.createElement('canvas');
     canvas.width=m.img.width; canvas.height=m.img.height;
-    const ctx=canvas.getContext('2d');
-    ctx.drawImage(m.img,0,0);
-    ctx.drawImage(designImg,m.zone.x,m.zone.y,m.zone.w,m.zone.h);
-    drawWatermark(ctx, canvas.width, canvas.height, 'mockup');
-    const item=document.createElement('div'); item.className='result-item';
-    const img=document.createElement('img'); img.src=canvas.toDataURL('image/png');
-    const lbl=document.createElement('div'); lbl.className='result-label'; lbl.textContent='👕 '+m.name;
-    const dl=document.createElement('a'); dl.className='dl-btn'; dl.textContent='⬇️ ดาวน์โหลด';
-    dl.href=canvas.toDataURL('image/png'); dl.download=`mockup-${m.name}.png`;
-    item.appendChild(img); item.appendChild(lbl); item.appendChild(dl); grid.appendChild(item);
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(m.img, 0, 0);
+    ctx.drawImage(designImg, m.zone.x, m.zone.y, m.zone.w, m.zone.h);
+    drawWatermark(ctx, canvas.width, canvas.height);
+    const dataUrl = canvas.toDataURL('image/png');
+    const item = document.createElement('div'); item.className='result-item';
+    const img = document.createElement('img'); img.src=dataUrl;
+    const lbl = document.createElement('div'); lbl.className='result-label'; lbl.textContent='👕 '+m.name;
+    const btnRow = document.createElement('div'); btnRow.style.cssText='display:flex;gap:6px;padding:6px 10px 10px';
+    const dl = document.createElement('a'); dl.className='dl-btn'; dl.style.flex='1';
+    dl.textContent='⬇️ ดาวน์โหลด'; dl.href=dataUrl; dl.download=`mockup-${m.name}.png`;
+    const addQ = document.createElement('button'); addQ.className='dl-btn'; addQ.style.cssText='flex:1;background:#818cf8';
+    addQ.textContent='📌 เพิ่มในคิว';
+    addQ.onclick = () => addToQueue(dataUrl, m.name);
+    btnRow.appendChild(dl); btnRow.appendChild(addQ);
+    item.appendChild(img); item.appendChild(lbl); item.appendChild(btnRow);
+    grid.appendChild(item);
   });
   wrap.appendChild(grid); results.appendChild(wrap);
 }
 
-// ===== GENERATE PINS =====
-let loadedImage = null;
-const STYLES = [
-  {name:"Lavender Dream",bg:"#f5f0ff",text:"#4c1d95",accent:"#a855f7"},
-  {name:"Purple Night",bg:"#2e1065",text:"#f3e8ff",accent:"#c084fc"},
-  {name:"Soft Rose",bg:"#fff0f9",text:"#831843",accent:"#d946ef"},
-  {name:"Mint Fresh",bg:"#f0fdf4",text:"#14532d",accent:"#22c55e"},
-  {name:"Cream Gold",bg:"#fefce8",text:"#713f12",accent:"#eab308"},
-  {name:"Sky Blue",bg:"#f0f9ff",text:"#0c4a6e",accent:"#38bdf8"},
-];
+// ===== PINTEREST QUEUE =====
+let queue = JSON.parse(localStorage.getItem('pinsflow_queue')||'[]');
 
-function previewImage(e) {
-  const file=e.target.files[0]; if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    document.getElementById('preview').src=ev.target.result;
-    document.getElementById('preview').style.display='block';
-    const image=new Image(); image.onload=()=>{loadedImage=image;}; image.src=ev.target.result;
-  };
-  reader.readAsDataURL(file);
+function addToQueue(dataUrl, name) {
+  queue.push({ id: Date.now(), img: dataUrl, name, board: '', time: '', status: 'pending' });
+  localStorage.setItem('pinsflow_queue', JSON.stringify(queue));
+  renderQueue();
+  alert('✅ เพิ่มในคิวแล้ว! ไปที่หน้า Pinterest เพื่อตั้งเวลาโพสได้เลย 📌');
 }
 
-function generatePins() {
-  const title=document.getElementById('title-input').value.trim();
-  const url=document.getElementById('url-input').value.trim();
-  const output=document.getElementById('output');
-  if(!loadedImage){alert('กรุณาอัปโหลดรูปสินค้าก่อนนะ 🌸');return;}
-  if(!title){alert('กรุณาใส่ชื่อสินค้า');return;}
-  if(!url){alert('กรุณาใส่ลิงก์ Etsy');return;}
-  output.innerHTML='';
-  const dlAll=document.createElement('button');
-  dlAll.className='btn'; dlAll.style.cssText='max-width:600px;margin:0 auto 12px;display:block';
-  dlAll.textContent='⬇️ ดาวน์โหลดทั้งหมด'; dlAll.onclick=downloadAll;
-  output.appendChild(dlAll);
-  const grid=document.createElement('div'); grid.className='pins-grid';
-  STYLES.forEach((style,i)=>{
-    const canvas=document.createElement('canvas');
-    canvas.width=600; canvas.height=900; canvas.id='canvas-'+i;
-    const ctx=canvas.getContext('2d');
-    drawPin(ctx,loadedImage,title,url,style);
-    drawWatermark(ctx,600,900,'pins');
-    const wrap=document.createElement('div'); wrap.className='pin-wrap';
-    const lbl=document.createElement('div'); lbl.className='pin-label'; lbl.textContent='🎨 '+style.name;
-    const dl=document.createElement('a'); dl.className='dl-btn'; dl.textContent='⬇️ ดาวน์โหลด PNG';
-    dl.href=canvas.toDataURL('image/png'); dl.download=`pin-${style.name.replace(/ /g,'-').toLowerCase()}.png`;
-    wrap.appendChild(lbl); wrap.appendChild(canvas); wrap.appendChild(dl); grid.appendChild(wrap);
+function renderQueue() {
+  const el = document.getElementById('schedule-queue'); el.innerHTML='';
+  if (!queue.length) {
+    el.innerHTML='<div style="text-align:center;padding:30px;color:#c084fc"><div style="font-size:40px">📭</div><div style="font-size:14px;margin-top:8px">ยังไม่มีรูปในคิว</div></div>';
+    return;
+  }
+  queue.forEach((item, idx) => {
+    const row = document.createElement('div'); row.className='schedule-item';
+    row.innerHTML=`
+      <img class="schedule-img" src="${item.img}">
+      <div class="schedule-info">
+        <div class="s-title">👕 ${item.name}</div>
+        <div class="s-time">${item.time||'ยังไม่ตั้งเวลา'}</div>
+      </div>
+      <span class="tag tag-${item.status}">${item.status==='pending'?'⏳ รอ':item.status==='scheduled'?'📅 ตั้งเวลาแล้ว':'✅ โพสแล้ว'}</span>
+      <button class="btn-danger" onclick="removeFromQueue(${idx})">🗑️</button>`;
+    el.appendChild(row);
   });
-  output.appendChild(grid);
 }
 
-function drawPin(ctx,img,title,url,style) {
-  const W=600,H=900;
-  ctx.fillStyle=style.bg; ctx.fillRect(0,0,W,H);
-  const imgH=520,scale=Math.max(W/img.width,imgH/img.height);
-  const drawW=img.width*scale,drawH=img.height*scale;
-  ctx.drawImage(img,(W-drawW)/2,(imgH-drawH)/2,drawW,drawH);
-  const grad=ctx.createLinearGradient(0,380,0,520);
-  grad.addColorStop(0,'rgba(0,0,0,0)'); grad.addColorStop(1,style.bg);
-  ctx.fillStyle=grad; ctx.fillRect(0,380,W,140);
-  ctx.fillStyle=style.accent; ctx.fillRect(40,548,80,4);
-  ctx.fillStyle=style.text; ctx.font='bold 24px sans-serif';
-  wrapText(ctx,title,40,585,520,32);
-  ctx.fillStyle=style.accent; ctx.font='15px sans-serif';
-  ctx.fillText(url.length>55?url.substring(0,52)+'...':url,40,860);
+function removeFromQueue(idx) {
+  queue.splice(idx, 1);
+  localStorage.setItem('pinsflow_queue', JSON.stringify(queue));
+  renderQueue();
 }
 
-function wrapText(ctx,text,x,y,maxW,lh) {
-  const words=text.split(' '); let line='';
-  for(let w of words){const test=line+w+' ';if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line.trim(),x,y);line=w+' ';y+=lh;if(y>820)break;}else line=test;}
-  ctx.fillText(line.trim(),x,y);
-}
-
-function downloadAll() {
-  STYLES.forEach((s,i)=>{const a=document.createElement('a');a.href=document.getElementById('canvas-'+i).toDataURL('image/png');a.download=`pin-${s.name.replace(/ /g,'-').toLowerCase()}.png`;a.click();});
+function connectPinterest() {
+  const secret = document.getElementById('pinterest-secret').value.trim();
+  if (!secret) {
+    alert('กรุณาใส่ App Secret ก่อนนะ 💜\nหาได้ที่ developers.pinterest.com → My Apps → Manage');
+    return;
+  }
+  alert('🔮 ระบบเชื่อมต่อจะเปิดใช้งานได้หลัง Pinterest อนุมัติ API\nตอนนี้รอรับอีเมลจาก Pinterest ก่อนนะ 💜');
 }
 
 // ===== PLANETARY HOURS =====
@@ -679,7 +626,9 @@ function renderBestTimes(hours) {
   });
 }
 
+// เริ่มต้น
 loadSavedMockups();
+renderQueue();
 </script>
 </body>
 </html>
