@@ -45,8 +45,6 @@ input:focus { border-color: #c084fc; }
 .result-label { padding: 7px 12px; font-size: 12px; color: #7e22ce; font-weight: bold; background: #faf5ff; }
 .dl-btn { display: block; margin: 4px 8px; background: #c084fc; color: white; border: none; padding: 7px; border-radius: 7px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; font-weight: bold; }
 .dl-btn:hover { background: #a855f7; }
-
-/* Planetary Hours Table */
 .ph-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
 .ph-col { border-radius: 16px; overflow: hidden; border: 2px solid #ede9fe; }
 .ph-col-day { border-color: #6ee7b7; }
@@ -60,16 +58,9 @@ input:focus { border-color: #c084fc; }
 .ph-table tr.current-row td { background: #f3e8ff; font-weight: bold; }
 .ph-table tr:last-child td { border-bottom: none; }
 .planet-name-cell { font-weight: bold; }
-
-/* Planet colors */
-.c-sun { color: #f59e0b; }
-.c-moon { color: #64748b; }
-.c-mars { color: #ef4444; }
-.c-mercury { color: #8b5cf6; }
-.c-jupiter { color: #3b82f6; }
-.c-venus { color: #ec4899; }
-.c-saturn { color: #374151; }
-
+.c-sun { color: #f59e0b; } .c-moon { color: #64748b; } .c-mars { color: #ef4444; }
+.c-mercury { color: #8b5cf6; } .c-jupiter { color: #3b82f6; }
+.c-venus { color: #ec4899; } .c-saturn { color: #374151; }
 .status-box { border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 16px; }
 .status-pending { background: #fef9c3; border: 1.5px solid #fde047; }
 .status-icon { font-size: 48px; margin-bottom: 8px; }
@@ -106,24 +97,19 @@ input:focus { border-color: #c084fc; }
 
 <!-- PAGE: MOCKUP -->
 <div id="page-mockup" class="page active">
-  <br>
-  <h1>👕 Mockup Generator</h1>
+  <br><h1>👕 Mockup Generator</h1>
   <p class="subtitle">วางดีไซน์ลงบน Mockup + ลายน้ำอัตโนมัติ</p>
 
   <div class="card">
     <label>🎨 Step 1 — อัปโหลดไฟล์ดีไซน์ PNG</label>
-    <div class="upload-box" id="design-box" onclick="document.getElementById('design-input').click()">
-      🖼️ กดเพื่อเลือกไฟล์ดีไซน์ PNG
-    </div>
+    <div class="upload-box" id="design-box" onclick="document.getElementById('design-input').click()">🖼️ กดเพื่อเลือกไฟล์ดีไซน์ PNG</div>
     <input type="file" id="design-input" accept="image/*" style="display:none" onchange="loadDesign(event)">
     <img id="design-preview" style="max-height:120px;margin-top:10px;border-radius:8px;display:none">
   </div>
 
   <div class="card">
     <label>💧 ลายน้ำ — ไม่บังคับ</label>
-    <div class="upload-box" id="wm-box" onclick="document.getElementById('wm-input').click()">
-      🔏 กดเพื่ออัปโหลดลายน้ำ (PNG โปร่งใสจะดีที่สุด)
-    </div>
+    <div class="upload-box" id="wm-box" onclick="document.getElementById('wm-input').click()">🔏 กดเพื่ออัปโหลดลายน้ำ (PNG โปร่งใสจะดีที่สุด)</div>
     <input type="file" id="wm-input" accept="image/*" style="display:none" onchange="loadWatermark(event)">
     <div id="wm-preview" style="display:none">
       <div class="wm-preview">
@@ -134,17 +120,14 @@ input:focus { border-color: #c084fc; }
         </div>
       </div>
       <label style="margin-top:10px">ความโปร่งใสลายน้ำ</label>
-      <input type="range" id="wm-opacity" min="5" max="100" value="30"
-        oninput="document.getElementById('wm-opacity-val').textContent=this.value+'%'">
+      <input type="range" id="wm-opacity" min="5" max="100" value="30" oninput="document.getElementById('wm-opacity-val').textContent=this.value+'%'">
       <span id="wm-opacity-val" style="font-size:12px;color:#a78bfa">30%</span>
     </div>
   </div>
 
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-      <label style="margin:0">👕 Step 2 — Mockup Templates
-        <span class="saved-badge">💾 จำตำแหน่งอัตโนมัติ</span>
-      </label>
+      <label style="margin:0">👕 Step 2 — Mockup Templates <span class="saved-badge">💾 จำตำแหน่งอัตโนมัติ</span></label>
       <button class="btn btn-sm btn-outline" onclick="document.getElementById('mockup-input').click()">+ เพิ่ม Mockup</button>
     </div>
     <input type="file" id="mockup-input" accept="image/*" multiple style="display:none" onchange="addMockups(event)">
@@ -162,9 +145,7 @@ input:focus { border-color: #c084fc; }
   <div id="editor-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999;overflow-y:auto;padding:20px">
     <div style="background:white;border-radius:20px;padding:20px;max-width:600px;margin:0 auto">
       <h2 style="color:#7e22ce;margin-bottom:4px">📐 กำหนดตำแหน่งดีไซน์</h2>
-      <p style="font-size:12px;color:#10b981;background:#d1fae5;padding:8px 12px;border-radius:8px;margin:8px 0">
-        💾 กำหนดครั้งเดียว จำไว้ตลอด ไม่ต้องทำใหม่!
-      </p>
+      <p style="font-size:12px;color:#10b981;background:#d1fae5;padding:8px 12px;border-radius:8px;margin:8px 0">💾 กำหนดครั้งเดียว จำไว้ตลอด!</p>
       <p style="font-size:12px;color:#a78bfa;text-align:center;margin-bottom:8px">👆 ลากเพื่อวาดกล่องตำแหน่ง</p>
       <div style="margin:12px 0;text-align:center">
         <canvas id="editor-canvas" style="border-radius:10px;border:2px solid #e9d5ff;cursor:crosshair;max-width:100%"></canvas>
@@ -180,8 +161,7 @@ input:focus { border-color: #c084fc; }
 
 <!-- PAGE: PINTEREST -->
 <div id="page-pinterest" class="page">
-  <br>
-  <h1>📌 Pinterest</h1>
+  <br><h1>📌 Pinterest</h1>
   <p class="subtitle">ตั้งเวลาโพสตามดาวมงคล</p>
 
   <div class="status-box status-pending">
@@ -211,8 +191,7 @@ input:focus { border-color: #c084fc; }
 
 <!-- PAGE: PLANETARY HOURS -->
 <div id="page-planets" class="page">
-  <br>
-  <h1>🌟 Planetary Hours</h1>
+  <br><h1>🌟 Planetary Hours</h1>
   <p class="subtitle">เวลามงคลสำหรับการโพส</p>
 
   <div class="card">
@@ -229,7 +208,6 @@ input:focus { border-color: #c084fc; }
 
   <div id="ph-tables-wrap" style="display:none">
     <div class="ph-wrap">
-      <!-- Day -->
       <div class="ph-col ph-col-day">
         <div class="ph-header ph-header-day">☀️ กลางวัน</div>
         <table class="ph-table">
@@ -237,7 +215,6 @@ input:focus { border-color: #c084fc; }
           <tbody id="day-tbody"></tbody>
         </table>
       </div>
-      <!-- Night -->
       <div class="ph-col ph-col-night">
         <div class="ph-header ph-header-night">🌙 กลางคืน</div>
         <table class="ph-table">
@@ -265,26 +242,148 @@ function showPage(name, btn) {
   if (name === 'pinterest') initPinterestPage();
 }
 
-// ===== PLANETS DATA =====
+// ===== PLANETS =====
 const PLANETS = [
-  { name:'อาทิตย์', en:'Sun',     icon:'☀️',  color:'#f59e0b', cls:'c-sun'     },
-  { name:'จันทร์',  en:'Moon',    icon:'🌙',  color:'#64748b', cls:'c-moon'    },
-  { name:'อังคาร',  en:'Mars',    icon:'🔴',  color:'#ef4444', cls:'c-mars'    },
-  { name:'พุธ',     en:'Mercury', icon:'⚡',  color:'#8b5cf6', cls:'c-mercury' },
-  { name:'พฤหัส',  en:'Jupiter', icon:'🌀',  color:'#3b82f6', cls:'c-jupiter' },
-  { name:'ศุกร์',   en:'Venus',   icon:'💜',  color:'#ec4899', cls:'c-venus'   },
-  { name:'เสาร์',   en:'Saturn',  icon:'🪐',  color:'#374151', cls:'c-saturn'  },
+  { name:'อาทิตย์', en:'Sun',     icon:'☀️', color:'#f59e0b', cls:'c-sun'     },
+  { name:'จันทร์',  en:'Moon',    icon:'🌙', color:'#64748b', cls:'c-moon'    },
+  { name:'อังคาร',  en:'Mars',    icon:'🔴', color:'#ef4444', cls:'c-mars'    },
+  { name:'พุธ',     en:'Mercury', icon:'⚡', color:'#8b5cf6', cls:'c-mercury' },
+  { name:'พฤหัส',  en:'Jupiter', icon:'🌀', color:'#3b82f6', cls:'c-jupiter' },
+  { name:'ศุกร์',   en:'Venus',   icon:'💜', color:'#ec4899', cls:'c-venus'   },
+  { name:'เสาร์',   en:'Saturn',  icon:'🪐', color:'#374151', cls:'c-saturn'  },
 ];
 
-// Chaldean order: Sun, Venus, Mercury, Moon, Saturn, Jupiter, Mars (index in PLANETS)
-// ลำดับ Chaldean ที่ถูกต้อง: ดาวเสาร์(6), พฤหัส(4), อังคาร(2), อาทิตย์(0), ศุกร์(5), พุธ(3), จันทร์(1)
-const CHALDEAN_ORDER = [0, 5, 3, 1, 6, 4, 2]; // Sun, Venus, Mercury, Moon, Saturn, Jupiter, Mars
-
-// Day rulers: JS getDay() 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
-// ดาวปกครองวัน: อาทิตย์=Sun, จันทร์=Moon, อังคาร=Mars, พุธ=Mercury, พฤหัส=Jupiter, ศุกร์=Venus, เสาร์=Saturn
-const DAY_RULERS = [0, 1, 2, 3, 4, 5, 6]; // index in PLANETS per JS day
+// Chaldean order (Sun=0,Venus=5,Mercury=3,Moon=1,Saturn=6,Jupiter=4,Mars=2)
+const CHALDEAN_ORDER = [0, 5, 3, 1, 6, 4, 2];
+// Day rulers by JS getDay() (0=Sun..6=Sat)
+const DAY_RULERS = [0, 1, 2, 3, 4, 5, 6];
 
 let allHoursGlobal = [];
+
+// ===== GET SUNRISE/SUNSET จาก API (แม่นยำ) =====
+async function getSunTimes(lat, lon, date) {
+  const dateStr = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  const res = await fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=${dateStr}&formatted=0`);
+  const data = await res.json();
+  // API คืนเวลา UTC → แปลงเป็น local Date object อัตโนมัติ
+  return {
+    sunrise: new Date(data.results.sunrise),
+    sunset:  new Date(data.results.sunset)
+  };
+}
+
+// ===== CALC PLANETARY HOURS =====
+function calcPlanetaryHours(sunrise, sunset, ref) {
+  const dayMs     = sunset - sunrise;
+  const nightMs   = 86400000 - dayMs;
+  const dayHourMs = dayMs / 12;
+  const nightHourMs = nightMs / 12;
+
+  const jsDay = ref.getDay();
+  const dayRulerIdx = DAY_RULERS[jsDay];
+  const startPos = CHALDEAN_ORDER.indexOf(dayRulerIdx);
+
+  const hours = [];
+  for (let i = 0; i < 24; i++) {
+    const pos = (startPos + i) % 7;
+    const planetIdx = CHALDEAN_ORDER[pos];
+    const isDay = i < 12;
+    const start = isDay
+      ? new Date(sunrise.getTime() + i * dayHourMs)
+      : new Date(sunset.getTime()  + (i-12) * nightHourMs);
+    const end = isDay
+      ? new Date(sunrise.getTime() + (i+1) * dayHourMs)
+      : new Date(sunset.getTime()  + (i-11) * nightHourMs);
+    hours.push({ hour: i+1, planet: PLANETS[planetIdx], start, end, isDay });
+  }
+  return hours;
+}
+
+function fmtTime(d) {
+  return d.toLocaleTimeString('th-TH', { hour:'2-digit', minute:'2-digit' });
+}
+
+// ===== MAIN CALC =====
+async function calcHours() {
+  const city = document.getElementById('city-input').value.trim() || 'Bangkok';
+  localStorage.setItem('pinsflow_city', city);
+  document.getElementById('sun-info').textContent = '⏳ กำลังคำนวณ...';
+  document.getElementById('ph-tables-wrap').style.display = 'none';
+  document.getElementById('best-times-card').style.display = 'none';
+  document.getElementById('current-planet-wrap').style.display = 'none';
+
+  try {
+    // 1) หา lat/lon
+    const geo = await(await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`
+    )).json();
+    if (!geo.length) { document.getElementById('sun-info').textContent='❌ ไม่พบเมืองนี้'; return; }
+
+    const lat = parseFloat(geo[0].lat);
+    const lon = parseFloat(geo[0].lon);
+    const now = new Date();
+
+    // 2) ดึง sunrise/sunset จาก API (แม่นยำ)
+    const { sunrise, sunset } = await getSunTimes(lat, lon, now);
+
+    document.getElementById('sun-info').textContent =
+      `📍 ${geo[0].display_name.split(',')[0]} | 🌅 ${fmtTime(sunrise)} | 🌇 ${fmtTime(sunset)}`;
+
+    // 3) คำนวณ planetary hours
+    const hours = calcPlanetaryHours(sunrise, sunset, now);
+    allHoursGlobal = hours;
+
+    // 4) แสดงดาวปัจจุบัน
+    const current = hours.find(h => now >= h.start && now < h.end);
+    if (current) {
+      document.getElementById('current-planet-wrap').style.display = 'block';
+      const badge = document.getElementById('current-planet-badge');
+      badge.textContent = `${current.planet.icon} ตอนนี้: ชั่วโมงดาว${current.planet.name} (ชั่วโมงที่ ${current.hour})`;
+      badge.style.background = current.planet.color;
+    }
+
+    // 5) Render ตาราง
+    const dayTbody   = document.getElementById('day-tbody');
+    const nightTbody = document.getElementById('night-tbody');
+    dayTbody.innerHTML = ''; nightTbody.innerHTML = '';
+
+    hours.forEach(h => {
+      const isCurrent = now >= h.start && now < h.end;
+      const tr = document.createElement('tr');
+      if (isCurrent) tr.className = 'current-row';
+      tr.innerHTML = `
+        <td>${h.hour}</td>
+        <td class="planet-name-cell ${h.planet.cls}">${h.planet.icon} ${h.planet.name}</td>
+        <td>${fmtTime(h.start)}</td>
+        <td>${fmtTime(h.end)}</td>`;
+      if (h.isDay) dayTbody.appendChild(tr);
+      else         nightTbody.appendChild(tr);
+    });
+
+    document.getElementById('ph-tables-wrap').style.display = 'block';
+
+    // 6) Best times
+    renderBestTimes(hours);
+    document.getElementById('best-times-card').style.display = 'block';
+
+  } catch(e) {
+    document.getElementById('sun-info').textContent = '❌ เกิดข้อผิดพลาด: ' + e.message;
+  }
+}
+
+function renderBestTimes(hours) {
+  const c = document.getElementById('best-times'); c.innerHTML = '';
+  ['Venus','Jupiter','Sun'].forEach(en => {
+    const p = PLANETS.find(x => x.en===en);
+    const t = hours.filter(h => h.planet.en===en);
+    const div = document.createElement('div');
+    div.className = 'best-box';
+    div.style.cssText = `background:${p.color}15;border:1px solid ${p.color}30;margin-bottom:8px`;
+    div.innerHTML = `<strong style="color:${p.color}">${p.icon} ดาว${p.name}</strong><br>` +
+      t.map(h => `<span style="font-size:13px;color:#6b7280">⏰ ${fmtTime(h.start)}–${fmtTime(h.end)} ${h.isDay?'🌤️':'🌙'}</span>`).join('<br>');
+    c.appendChild(div);
+  });
+}
 
 // ===== WATERMARK =====
 let wmImage = null;
@@ -319,12 +418,8 @@ function drawWatermark(ctx, W, H) {
 }
 
 // ===== MOCKUP =====
-let designImg = null;
-let mockups = [];
-let editingId = null;
-let isDrawing = false;
-let startX, startY, currentZone = null;
-let editorScale = 1;
+let designImg = null, mockups = [], editingId = null;
+let isDrawing = false, startX, startY, currentZone = null, editorScale = 1;
 
 function loadSavedMockups() {
   try {
@@ -336,7 +431,7 @@ function loadSavedMockups() {
       data.forEach(m => {
         const img = new Image();
         img.onload = () => {
-          mockups.push({ id: m.id, name: m.name, img, imgSrc: m.imgSrc, zone: m.zone });
+          mockups.push({ id:m.id, name:m.name, img, imgSrc:m.imgSrc, zone:m.zone });
           if (++loaded === data.length) renderMockupGrid();
         };
         img.src = m.imgSrc;
@@ -348,7 +443,7 @@ function loadSavedMockups() {
 function saveMockups() {
   try {
     localStorage.setItem('pinsflow_mockups', JSON.stringify(
-      mockups.map(m => ({ id: m.id, name: m.name, imgSrc: m.imgSrc, zone: m.zone }))
+      mockups.map(m => ({ id:m.id, name:m.name, imgSrc:m.imgSrc, zone:m.zone }))
     ));
   } catch(e) { alert('⚠️ พื้นที่เต็ม ลองลบ mockup บางอันออกก่อน'); }
 }
@@ -378,7 +473,7 @@ function addMockups(e) {
     reader.onload = ev => {
       const img = new Image();
       img.onload = () => {
-        mockups.push({ id: Date.now()+Math.random(), name: file.name.replace(/\.[^/.]+$/,''), img, imgSrc: ev.target.result, zone: null });
+        mockups.push({ id:Date.now()+Math.random(), name:file.name.replace(/\.[^/.]+$/,''), img, imgSrc:ev.target.result, zone:null });
         if (++processed === files.length) { saveMockups(); renderMockupGrid(); checkGenerateReady(); }
       };
       img.src = ev.target.result;
@@ -423,11 +518,11 @@ function checkGenerateReady() {
 
 function openEditor(id) {
   editingId = id;
-  const m = mockups.find(m => String(m.id) === String(id));
+  const m = mockups.find(m => String(m.id)===String(id));
   const canvas = document.getElementById('editor-canvas');
   const maxW = Math.min(560, window.innerWidth - 80);
   editorScale = maxW / m.img.width;
-  canvas.width = m.img.width * editorScale;
+  canvas.width  = m.img.width  * editorScale;
   canvas.height = m.img.height * editorScale;
   currentZone = m.zone ? {...m.zone} : null;
   drawEditor(canvas.getContext('2d'), m.img, canvas);
@@ -498,7 +593,8 @@ function generateMockups() {
     const btnRow = document.createElement('div'); btnRow.style.cssText='display:flex;gap:6px;padding:6px 8px 10px';
     const dl = document.createElement('a'); dl.className='dl-btn'; dl.style.flex='1';
     dl.textContent='⬇️ ดาวน์โหลด'; dl.href=dataUrl; dl.download=`mockup-${m.name}.png`;
-    const addQ = document.createElement('button'); addQ.className='dl-btn'; addQ.style.cssText='flex:1;background:#818cf8;border:none;cursor:pointer';
+    const addQ = document.createElement('button'); addQ.className='dl-btn';
+    addQ.style.cssText='flex:1;background:#818cf8;border:none;cursor:pointer';
     addQ.textContent='📌 เพิ่มในคิว';
     addQ.onclick = () => addToQueue(dataUrl, m.name);
     btnRow.appendChild(dl); btnRow.appendChild(addQ);
@@ -511,7 +607,7 @@ function generateMockups() {
 // ===== QUEUE =====
 let queue = JSON.parse(localStorage.getItem('pinsflow_queue')||'[]');
 function addToQueue(dataUrl, name) {
-  queue.push({ id: Date.now(), img: dataUrl, name, time: '', status: 'pending' });
+  queue.push({ id:Date.now(), img:dataUrl, name, time:'', status:'pending' });
   localStorage.setItem('pinsflow_queue', JSON.stringify(queue));
   renderQueue();
   alert('✅ เพิ่มในคิวแล้ว!\nไปหน้า Pinterest → เลือกดาว → กดเวลา 📌');
@@ -537,7 +633,7 @@ function renderQueue() {
   });
 }
 function removeFromQueue(idx) {
-  queue.splice(idx, 1);
+  queue.splice(idx,1);
   localStorage.setItem('pinsflow_queue', JSON.stringify(queue));
   renderQueue();
 }
@@ -552,10 +648,12 @@ function initPinterestPage() {
 async function calcHoursForPinterest() {
   try {
     const city = localStorage.getItem('pinsflow_city') || 'Bangkok';
-    const geo = await(await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`)).json();
+    const geo = await(await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`
+    )).json();
     if (!geo.length) return;
     const lat=parseFloat(geo[0].lat), lon=parseFloat(geo[0].lon), now=new Date();
-    const {sunrise,sunset} = getSunTimes(lat,lon,now);
+    const { sunrise, sunset } = await getSunTimes(lat, lon, now);
     allHoursGlobal = calcPlanetaryHours(sunrise, sunset, now);
     renderPinPlanetSelector();
   } catch(e) {}
@@ -565,7 +663,7 @@ function renderPinPlanetSelector() {
   PLANETS.forEach(p => {
     const btn = document.createElement('button');
     btn.className = 'p-btn' + (selectedPinPlanet===p.en?' active':'');
-    if (selectedPinPlanet===p.en) btn.style.cssText = `background:${p.color};border-color:${p.color}`;
+    if (selectedPinPlanet===p.en) btn.style.cssText=`background:${p.color};border-color:${p.color}`;
     btn.innerHTML = `${p.icon} ${p.name}`;
     btn.onclick = () => { selectedPinPlanet=p.en; renderPinPlanetSelector(); renderTimeSlots(); };
     c.appendChild(btn);
@@ -585,8 +683,7 @@ function renderTimeSlots() {
   title.textContent=`⏰ เวลาดาว${p.name}วันนี้ — กดเลือกเวลา`;
   el.appendChild(title);
   times.forEach(h => {
-    const slot = document.createElement('div');
-    slot.className = 'time-slot';
+    const slot = document.createElement('div'); slot.className='time-slot';
     slot.innerHTML = `${h.isDay?'🌤️':'🌙'} ${fmtTime(h.start)} – ${fmtTime(h.end)}`;
     slot.onclick = () => {
       document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
@@ -597,147 +694,18 @@ function renderTimeSlots() {
   });
 }
 function applyTimeToQueue(timeStr) {
-  if (!queue.length) { alert('ยังไม่มีรูปในคิว\nไป Generate Mockup ก่อนนะ'); return; }
+  if (!queue.length){alert('ยังไม่มีรูปในคิว\nไป Generate Mockup ก่อนนะ');return;}
   const idx = queue.findIndex(q=>q.status==='pending');
-  if (idx === -1) { alert('รูปในคิวตั้งเวลาหมดแล้ว 🎉'); return; }
-  queue[idx].time = timeStr;
-  queue[idx].status = 'scheduled';
+  if (idx===-1){alert('รูปในคิวตั้งเวลาหมดแล้ว 🎉');return;}
+  queue[idx].time=timeStr; queue[idx].status='scheduled';
   localStorage.setItem('pinsflow_queue', JSON.stringify(queue));
   renderQueue();
   alert(`✅ ตั้งเวลา ${timeStr}\nให้รูป "${queue[idx].name}" แล้ว 💜`);
 }
 function connectPinterest() {
   const secret = document.getElementById('pinterest-secret').value.trim();
-  if (!secret) { alert('กรุณาใส่ App Secret ก่อนนะ 💜'); return; }
-  alert('🔮 รอ Pinterest อนุมัติ API ก่อนนะ\nพอได้รับอีเมลแล้วจะเชื่อมต่อได้เลย 💜');
-}
-
-// ===== PLANETARY HOURS CALCULATION =====
-function getSunTimes(lat, lon, date) {
-  const rad = Math.PI/180;
-  const doy = Math.floor((date - new Date(date.getFullYear(),0,0)) / 86400000);
-  const B = (360/365) * (doy - 81) * rad;
-  const eot = 9.87*Math.sin(2*B) - 7.53*Math.cos(B) - 1.5*Math.sin(B);
-  const decl = 23.45 * Math.sin(B) * rad;
-  const ha = Math.acos(-Math.tan(lat*rad) * Math.tan(decl)) / rad;
-  const tz = date.getTimezoneOffset() / -60;
-  const noon = 12 - (lon/15 - tz) - eot/60;
-  const toDate = h => {
-    const d = new Date(date); d.setHours(0,0,0,0);
-    d.setTime(d.getTime() + h*3600000); return d;
-  };
-  return { sunrise: toDate(noon - ha/15), sunset: toDate(noon + ha/15) };
-}
-
-function calcPlanetaryHours(sunrise, sunset, ref) {
-  const dayMs = sunset - sunrise;
-  const nightMs = 86400000 - dayMs;
-  const dayHourMs = dayMs / 12;
-  const nightHourMs = nightMs / 12;
-
-  // หา day ruler ตาม JS getDay()
-  const jsDay = ref.getDay(); // 0=Sun,1=Mon,...,6=Sat
-  const dayRulerIdx = DAY_RULERS[jsDay]; // index ใน PLANETS
-
-  // หาตำแหน่งของ day ruler ใน CHALDEAN_ORDER
-  const startPos = CHALDEAN_ORDER.indexOf(dayRulerIdx);
-
-  const hours = [];
-  for (let i = 0; i < 24; i++) {
-    const pos = (startPos + i) % 7;
-    const planetIdx = CHALDEAN_ORDER[pos];
-    const isDay = i < 12;
-    const start = isDay
-      ? new Date(sunrise.getTime() + i * dayHourMs)
-      : new Date(sunset.getTime() + (i-12) * nightHourMs);
-    const end = isDay
-      ? new Date(sunrise.getTime() + (i+1) * dayHourMs)
-      : new Date(sunset.getTime() + (i-11) * nightHourMs);
-    hours.push({ hour: i+1, planet: PLANETS[planetIdx], start, end, isDay });
-  }
-  return hours;
-}
-
-function fmtTime(d) { return d.toLocaleTimeString('th-TH', {hour:'2-digit', minute:'2-digit'}); }
-
-// ===== RENDER PLANETARY HOURS TABLE =====
-async function calcHours() {
-  const city = document.getElementById('city-input').value.trim() || 'Bangkok';
-  localStorage.setItem('pinsflow_city', city);
-  document.getElementById('sun-info').textContent = '⏳ กำลังคำนวณ...';
-  try {
-    const geo = await(await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`)).json();
-    if (!geo.length) { document.getElementById('sun-info').textContent='❌ ไม่พบเมืองนี้'; return; }
-    const lat=parseFloat(geo[0].lat), lon=parseFloat(geo[0].lon), now=new Date();
-    const {sunrise, sunset} = getSunTimes(lat, lon, now);
-    document.getElementById('sun-info').textContent =
-      `📍 ${geo[0].display_name.split(',')[0]} | 🌅 ${fmtTime(sunrise)} | 🌇 ${fmtTime(sunset)}`;
-
-    const hours = calcPlanetaryHours(sunrise, sunset, now);
-    allHoursGlobal = hours;
-
-    // แสดงดาวปัจจุบัน
-    const current = hours.find(h => now >= h.start && now < h.end);
-    if (current) {
-      document.getElementById('current-planet-wrap').style.display = 'block';
-      const badge = document.getElementById('current-planet-badge');
-      badge.textContent = `${current.planet.icon} ตอนนี้: ชั่วโมงดาว${current.planet.name} (ชั่วโมงที่ ${current.hour})`;
-      badge.style.background = current.planet.color;
-    }
-
-    // Render ตาราง
-    const dayHours = hours.filter(h => h.isDay);
-    const nightHours = hours.filter(h => !h.isDay);
-
-    const dayTbody = document.getElementById('day-tbody');
-    const nightTbody = document.getElementById('night-tbody');
-    dayTbody.innerHTML = ''; nightTbody.innerHTML = '';
-
-    dayHours.forEach(h => {
-      const isCurrent = now >= h.start && now < h.end;
-      const tr = document.createElement('tr');
-      if (isCurrent) tr.className = 'current-row';
-      tr.innerHTML = `
-        <td>${h.hour}</td>
-        <td class="planet-name-cell ${h.planet.cls}">${h.planet.icon} ${h.planet.name}</td>
-        <td>${fmtTime(h.start)}</td>
-        <td>${fmtTime(h.end)}</td>`;
-      dayTbody.appendChild(tr);
-    });
-
-    nightHours.forEach(h => {
-      const isCurrent = now >= h.start && now < h.end;
-      const tr = document.createElement('tr');
-      if (isCurrent) tr.className = 'current-row';
-      tr.innerHTML = `
-        <td>${h.hour}</td>
-        <td class="planet-name-cell ${h.planet.cls}">${h.planet.icon} ${h.planet.name}</td>
-        <td>${fmtTime(h.start)}</td>
-        <td>${fmtTime(h.end)}</td>`;
-      nightTbody.appendChild(tr);
-    });
-
-    document.getElementById('ph-tables-wrap').style.display = 'block';
-
-    // Best times
-    renderBestTimes(hours);
-    document.getElementById('best-times-card').style.display = 'block';
-
-  } catch(e) { document.getElementById('sun-info').textContent='❌ เกิดข้อผิดพลาด'; }
-}
-
-function renderBestTimes(hours) {
-  const c = document.getElementById('best-times'); c.innerHTML='';
-  ['Venus','Jupiter','Sun'].forEach(en => {
-    const p = PLANETS.find(x=>x.en===en);
-    const t = hours.filter(h=>h.planet.en===en);
-    const div = document.createElement('div');
-    div.className = 'best-box';
-    div.style.cssText = `background:${p.color}15;border:1px solid ${p.color}30;margin-bottom:8px`;
-    div.innerHTML = `<strong style="color:${p.color}">${p.icon} ดาว${p.name}</strong><br>` +
-      t.map(h=>`<span style="font-size:13px;color:#6b7280">⏰ ${fmtTime(h.start)}–${fmtTime(h.end)} ${h.isDay?'🌤️':'🌙'}</span>`).join('<br>');
-    c.appendChild(div);
-  });
+  if (!secret){alert('กรุณาใส่ App Secret ก่อนนะ 💜');return;}
+  alert('🔮 รอ Pinterest อนุมัติ API ก่อนนะ 💜');
 }
 
 // เริ่มต้น
